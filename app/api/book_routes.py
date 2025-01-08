@@ -4,24 +4,6 @@ from app.models.book import Book  # Import Book directly from models.book
 from app.models.review import Review 
 
 book_routes = Blueprint('books', __name__)
-# Add Book
-# @book_routes.route('/books', methods=['POST'])
-# def add_book():
-#     data = request.get_json()
-#     try:
-#         new_book = Book(
-#             title=data['title'],
-#             author=data['author'],
-#             cover_image=data.get('cover_image'),
-#             description=data.get('description'),
-#             genre=data.get('genre')
-#         )
-#         db.session.add(new_book)
-#         db.session.commit()
-#         return jsonify({"message": "Book successfully added.", "book": new_book.to_dict()}), 201
-#     except Exception as e:
-#         return jsonify({"error": "Validation errors", "details": str(e)}), 400
-
 
 @book_routes.route('/books', methods=['POST'])
 def add_book():
