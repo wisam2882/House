@@ -52,82 +52,120 @@ This is the starter for the Flask React project.
    folder whenever you change your code, keeping the production version up to
    date.
 
-## Deployment through Render.com
+## API Documentation
 
-First, recall that Vite is a development dependency, so it will not be used in
-production. This means that you must already have the __dist__ folder located in
-the root of your __react-vite__ folder when you push to GitHub. This __dist__
-folder contains your React code and all necessary dependencies minified and
-bundled into a smaller footprint, ready to be served from your Python API.
+User Authentication
+Sign Up
+POST /auth/signup
+Request Body:
+{
+ "username": "string",
+  "email": "string",
+  "password": "string"
 
-Begin deployment by running `npm run build` in your __react-vite__ folder and
-pushing any changes to GitHub.
+}
+Response: 
+201 Created: User Successfully created.
+400 bad request: validation errors.
+	Log In
+	POST/auth/login
+	Request Body:
+			{
+			 "email": "string",
+ "password": "string"
+}
+Response:
+200 OK: returns user details and authentication token.
+401 unauthorized: invalid credentials.
+	
 
-Refer to your Render.com deployment articles for more detailed instructions
-about getting started with [Render.com], creating a production database, and
-deployment debugging tips.
+Book Management
+Add Book
+POST/books
+Request Body:
+{
+ "title": "string",
+  "author": "string",
+  "cover_image": "string",
+  "description": "string",
+  "genre": "string"
+}
+Response:
+201 Created: Book successfully added. 
+400 bad Requests: Validation errors
+Edit Book
+PUT/books/{bookId}
+Request Body:
+{
+ "title": "string",
+  "author": "string",
+  "cover_image": "string",
+  "description": "string",
+  "genre": "string"
+}
+Response:
+200 OK: book successfully updated.
+404 Not Found: Book not found.
+Delete Book
+DELETE/book/{bookId}
+Response:
+204 No Content: Book successfully deleted.
+404 Not Found: Book not found.
+Get All Book
+GET/books
+Response:
+200 OK: returns a list of all books.
+Request body:
+{
+   "id": "int",
+    "title": "string",
+    "author": "string",
+    "cover_image": "string",
+    "description": "string"
+}
+			
+Search Books
+GET/books/search
+Query parameters: tag(string) <<== (maybe?)
+Response:
+200 OK: Returns a list of books matching the search criteria.
 
-From the Render [Dashboard], click on the "New +" button in the navigation bar,
-and click on "Web Service" to create the application that will be deployed.
+Review Management
+Add Review
+POST/{bookId}/reviews
+Request Body:
+{
+ "rating": "int",
+  "comment": "string"
+}
+Response:
+201 Created: Review successfully added.
+400 Bad Requests: Validation errors.
 
-Select that you want to "Build and deploy from a Git repository" and click
-"Next". On the next page, find the name of the application repo you want to
-deploy and click the "Connect" button to the right of the name.
+Get Reviews for a Book
+GET/books/{bookId}reviews
+Response:
+200 OK: Returns a list of reviews for the specified book.
+Request Body:
+{
+   "id": "int",
+    "user_id": "int",
+    "rating": "int",
+    "comment": "string"
+}
 
-Now you need to fill out the form to configure your app. Most of the setup will
-be handled by the __Dockerfile__, but you do need to fill in a few fields.
+User Profile Management
 
-Start by giving your application a name.
+Get User Profile
+GET/users/1
+Response: 
+	{
+	 "id": "int",
+  	"username": "string",
+  	"email": "string",
+}
+Get User’s Books
+GET/users/1/books
+Response: 
+200 OK: Returns a list of books added by the user.
 
-Make sure the Region is set to the location closest to you, the Branch is set to
-"main", and Runtime is set to "Docker". You can leave the Root Directory field
-blank. (By default, Render will run commands from the root directory.)
-
-Select "Free" as your Instance Type.
-
-### Add environment variables
-
-In the development environment, you have been securing your environment
-variables in a __.env__ file, which has been removed from source control (i.e.,
-the file is gitignored). In this step, you will need to input the keys and
-values for the environment variables you need for production into the Render
-GUI.
-
-Add the following keys and values in the Render GUI form:
-
-- SECRET_KEY (click "Generate" to generate a secure secret for production)
-- FLASK_ENV production
-- FLASK_APP app
-- SCHEMA (your unique schema name, in snake_case)
-
-In a new tab, navigate to your dashboard and click on your Postgres database
-instance.
-
-Add the following keys and values:
-
-- DATABASE_URL (copy value from the **External Database URL** field)
-
-**Note:** Add any other keys and values that may be present in your local
-__.env__ file. As you work to further develop your project, you may need to add
-more environment variables to your local __.env__ file. Make sure you add these
-environment variables to the Render GUI as well for the next deployment.
-
-### Deploy
-
-Now you are finally ready to deploy! Click "Create Web Service" to deploy your
-project. The deployment process will likely take about 10-15 minutes if
-everything works as expected. You can monitor the logs to see your Dockerfile
-commands being executed and any errors that occur.
-
-When deployment is complete, open your deployed site and check to see that you
-have successfully deployed your Flask application to Render! You can find the
-URL for your site just below the name of the Web Service at the top of the page.
-
-**Note:** By default, Render will set Auto-Deploy for your project to true. This
-setting will cause Render to re-deploy your application every time you push to
-main, always keeping it up to date.
-
-[Render.com]: https://render.com/
-[Dashboard]: https://dashboard.render.com/
-# House
-# House
