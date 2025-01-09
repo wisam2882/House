@@ -1,16 +1,22 @@
-from flask import Blueprint, request, jsonify
-from app.models import db  # Only import db here
-from app.models.book import Book  # Import Book directly from models.book
-from app.models.review import Review 
+from flask import Blueprint, request, jsonify, session
+from app.models import db
+from app.models.book import Book
+from app.models.review import Review
+from flask_login import current_user
+from flask_login import login_required
 
 book_routes = Blueprint('books', __name__)
 
 @book_routes.route('/books', methods=['POST'])
 def add_book():
     data = request.get_json()
-    user_id = data.get('user_id')  # Get user_id from the request body
+    
+    # Retrieve user_id from the current user
+    user_id = current_user.id if current_user.is_authenticated else None
+    
     if user_id is None:
-        return jsonify({"error": "User ID is required."}), 400
+        return jsonify({"error": "You must be logged in to create a new book."}), 401  # Unauthorized
+
     try:
         new_book = Book(
             title=data['title'],
@@ -18,7 +24,7 @@ def add_book():
             cover_image=data.get('cover_image'),
             description=data.get('description'),
             genre=data.get('genre'),
-            user_id=user_id  # Set user_id from the request
+            user_id=user_id  # Use the user_id from the current user
         )
         db.session.add(new_book)
         db.session.commit()
@@ -78,8 +84,11 @@ def search_books():
     return jsonify([book.to_dict() for book in books]), 200
 
 # Add Review
+
 @book_routes.route('/books/<int:book_id>/reviews', methods=['POST'])
+@login_required
 def add_review(book_id):
+    print(f"Current User: {current_user}")  # Debugging line
     data = request.get_json()
     book = Book.query.get(book_id)
     if not book:
@@ -88,7 +97,7 @@ def add_review(book_id):
     try:
         new_review = Review(
             book_id=book_id,
-            user_id=data['user_id'],  # Assuming user_id is passed in the request
+            user_id=current_user.id,  # Use the current user's ID
             rating=data['rating'],
             comment=data.get('comment')
         )

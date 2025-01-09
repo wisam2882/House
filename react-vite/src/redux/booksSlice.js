@@ -1,6 +1,3 @@
-
-
-// Action Types
 const FETCH_BOOKS_REQUEST = 'FETCH_BOOKS_REQUEST';
 const FETCH_BOOKS_SUCCESS = 'FETCH_BOOKS_SUCCESS';
 const FETCH_BOOKS_FAILURE = 'FETCH_BOOKS_FAILURE';
@@ -20,6 +17,17 @@ const DELETE_BOOK_FAILURE = 'DELETE_BOOK_FAILURE';
 const FETCH_USER_BOOKS_REQUEST = 'FETCH_USER_BOOKS_REQUEST'; // Added action type
 const FETCH_USER_BOOKS_SUCCESS = 'FETCH_USER_BOOKS_SUCCESS'; // Added action type
 const FETCH_USER_BOOKS_FAILURE = 'FETCH_USER_BOOKS_FAILURE'; // Added action type
+
+// Action Types for Reviews
+const ADD_REVIEW_REQUEST = 'ADD_REVIEW_REQUEST';
+const ADD_REVIEW_SUCCESS = 'ADD_REVIEW_SUCCESS';
+const ADD_REVIEW_FAILURE = 'ADD_REVIEW_FAILURE';
+
+
+//fetching reviews 
+const FETCH_REVIEWS_REQUEST = 'FETCH_REVIEWS_REQUEST';
+const FETCH_REVIEWS_SUCCESS = 'FETCH_REVIEWS_SUCCESS';
+const FETCH_REVIEWS_FAILURE = 'FETCH_REVIEWS_FAILURE';
 
 // Action Creators
 const fetchBooksRequest = () => ({
@@ -93,6 +101,85 @@ const fetchUserBooksFailure = (error) => ({
   error,
 });
 
+// Action Creators for Adding Reviews
+const addReviewRequest = () => ({
+  type: ADD_REVIEW_REQUEST,
+});
+
+const addReviewSuccess = (review) => ({
+  type: ADD_REVIEW_SUCCESS,
+  review,
+});
+
+const addReviewFailure = (error) => ({
+  type: ADD_REVIEW_FAILURE,
+  error,
+});
+
+// fetching reviews
+
+const fetchReviewsRequest = () => ({
+  type: FETCH_REVIEWS_REQUEST,
+});
+
+const fetchReviewsSuccess = (reviews) => ({
+  type: FETCH_REVIEWS_SUCCESS,
+  reviews,
+});
+
+const fetchReviewsFailure = (error) => ({
+  type: FETCH_REVIEWS_FAILURE,
+  error,
+});
+
+export const fetchReviews = (bookId) => async (dispatch) => {
+  dispatch(fetchReviewsRequest());
+  try {
+    const response = await fetch(`/api/books/books/${bookId}/reviews`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.text();
+      throw new Error(`Error: ${response.status} - ${errorData}`);
+    }
+
+    const data = await response.json();
+    dispatch(fetchReviewsSuccess(data)); // Dispatch success action with the fetched reviews
+  } catch (error) {
+    console.error('Error fetching reviews:', error);
+    dispatch(fetchReviewsFailure({ server: error.message }));
+  }
+};
+
+// Thunk Action Creator for Adding a Review
+export const addReview = (bookId, review) => async (dispatch) => {
+  dispatch(addReviewRequest());
+  try {
+    const response = await fetch(`/api/books/books/${bookId}/reviews`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(review),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.text();
+      throw new Error(`Error: ${response.status} - ${errorData}`);
+    }
+
+    const data = await response.json();
+    dispatch(addReviewSuccess(data.review)); // Dispatch success action with the added review
+  } catch (error) {
+    console.error('Error adding review:', error);
+    dispatch(addReviewFailure({ server: error.message }));
+  }
+};
+
 // Thunk Action Creator for Fetching User Books
 export const fetchUserBooks = (userId) => async (dispatch) => {
   dispatch(fetchUserBooksRequest());
@@ -114,8 +201,6 @@ export const fetchUserBooks = (userId) => async (dispatch) => {
     dispatch(fetchUserBooksFailure({ server: error.message }));
   }
 };
-
-
 
 // Thunk Action Creator for Fetching User Profile
 export const fetchUserProfile = (userId) => async (dispatch) => {
@@ -195,6 +280,7 @@ const initialState = {
   loading: false,
   errors: null,
   selectedBook: null, // New property for the selected book
+  reviews: [], // New property for reviews
 };
 
 // Reducer
@@ -206,6 +292,20 @@ const booksReducer = (state = initialState, action) => {
         loading: true,
         errors: null,
       };
+      case 'FETCH_REVIEWS_SUCCESS':
+        return {
+          ...state,
+          loading: false,
+          reviews: action.reviews, // Update reviews for the specific book
+        };
+  
+      case 'FETCH_REVIEWS_FAILURE':
+        return {
+          ...state,
+          loading: false,
+          errors: action.error,
+        };
+  
     case FETCH_BOOKS_SUCCESS:
       return {
         ...state,
@@ -272,9 +372,27 @@ const booksReducer = (state = initialState, action) => {
         loading: false,
         errors: action.error,
       };
-    default:
-      return state;
-  }
-};
-
-export default booksReducer;
+      case ADD_REVIEW_REQUEST:
+        return {
+          ...state,
+          loading: true,
+          errors: null,
+        };
+      case ADD_REVIEW_SUCCESS:
+        return {
+          ...state,
+          reviews: [...state.reviews, action.review], // Add the new review to the state
+          loading: false,
+        };
+      case ADD_REVIEW_FAILURE:
+        return {
+          ...state,
+          loading: false,
+          errors: action.error, // Store the error if adding the review fails
+        };
+      default:
+        return state;
+    }
+  };
+  
+  export default booksReducer;

@@ -18,6 +18,6 @@ def get_user_profile(user_id):
 def get_user_books(user_id):
     user = User.query.get(user_id)
     if user:
-        books = [{"id": book.id, "title": book.title, "author": book.author} for book in user.books]
+        books = [{"id": book.id, "title": book.title, "author": book.author, "genre": book.genre, "description": book.description, "cover_image": book.cover_image} for book in user.books]
         return jsonify(books), 200
     return jsonify({"error": "User not found."}), 404

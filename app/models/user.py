@@ -31,6 +31,5 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email,
-            'books': [book.to_dict() for book in self.books]  # Include books in the user dict if needed
+            'email': self.email
         }
