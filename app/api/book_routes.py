@@ -62,6 +62,14 @@ def get_all_books():
     books = Book.query.all()
     return jsonify([book.to_dict() for book in books]), 200
 
+# Get Book Details
+@book_routes.route('/books/<int:book_id>', methods=['GET'])
+def get_book_detail(book_id):
+    book = Book.query.get(book_id)
+    if not book:
+        return jsonify({"error": "Book not found"}), 404
+    return jsonify(book.to_dict()), 200
+
 # Search Books
 @book_routes.route('/books/search', methods=['GET'])
 def search_books():
@@ -69,9 +77,7 @@ def search_books():
     books = Book.query.filter(Book.genre.ilike(f"%{tag}%")).all()
     return jsonify([book.to_dict() for book in books]), 200
 
-
-
-    # Add Review
+# Add Review
 @book_routes.route('/books/<int:book_id>/reviews', methods=['POST'])
 def add_review(book_id):
     data = request.get_json()

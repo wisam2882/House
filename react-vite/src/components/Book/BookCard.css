@@ -1,0 +1,20 @@
+.book-card {
+    background-color: #f9f9f9; /* Light background for the card */
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 8px; /* Rounded corners */
+    width: 200px; /* Fixed width for the card */
+    margin: 10px; /* Space between cards */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    text-align: center; /* Center text */
+    overflow: hidden; /* Prevent overflow */
+  }
+  
+  .book-card img {
+    width: 100%; /* Make image responsive */
+    height: auto; /* Maintain aspect ratio */
+  }
+  
+  .book-card h3 {
+    font-size: 1.2em; /* Title size */
+    margin: 10px 0; /* Margin around title */
+  }

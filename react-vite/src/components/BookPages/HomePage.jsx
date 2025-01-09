@@ -1,8 +1,10 @@
+// components/BookPage/HomePage.jsx
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchBooks } from '../../redux/booksSlice'; 
 import BookCard from '../Book/BookCard';
-
+import { Link } from 'react-router-dom'; // Import Link
+import "./HomePage.css";
 
 const HomePage = () => {
   const books = useSelector((state) => state.books.books);
@@ -30,7 +32,9 @@ const HomePage = () => {
       ) : (
         <div className="book-list">
           {books.map((book) => (
-            <BookCard key={book.id} book={book} />
+            <Link to={`/books/${book.id}`} key={book.id}> {/* Link to BookDetail */}
+              <BookCard book={book} />
+            </Link>
           ))}
         </div>
       )}

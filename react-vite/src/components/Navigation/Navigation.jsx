@@ -1,39 +1,33 @@
+// src/components/Navigation/Navigation.jsx
 import { NavLink } from "react-router-dom";
+import { useUser } from "../../context/UserContext";
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
 
 function Navigation() {
-  return (
-    <ul>
-      <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
+  const user = useUser(); // Get the current user object
 
-      <li>
-        <ProfileButton />
-      </li>
-    </ul>
+  return (
+    <nav>
+      <ul className="nav-links">
+        <li>
+          <NavLink to="/" className="nav-button">Home</NavLink>
+        </li>
+        <li>
+          {user ? (
+            <NavLink to={`/profile/${user.id}`} className="nav-button">My Books</NavLink>
+          ) : (
+            <span className="nav-button disabled">My Books</span>
+          )}
+        </li>
+        <li>
+          <div className="profile-button">
+            <ProfileButton />
+          </div>
+        </li>
+      </ul>
+    </nav>
   );
 }
 
 export default Navigation;
-
-
-
-// import React from 'react';
-// import { Link } from 'react-router-dom';
-
-// const Header = () => {
-//   return (
-//     <header>
-//       <h1>House of Wisdom</h1>
-//       <nav>
-//         <Link to="/">Home</Link>
-//         <Link to="/my-books">My Books</Link>
-//         <Link to="/about">About</Link>
-//       </nav>
-//     </header>
-//   );
-// };
-
-// export default Header;

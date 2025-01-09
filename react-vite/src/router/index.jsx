@@ -3,9 +3,8 @@ import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
 import HomePage from '../components/BookPages/HomePage'; // Import HomePage
-// import BookDetailPage from '../pages/BookDetailPage'; // Import BookDetailPage
-// import UserProfilePage from '../pages/UserProfilePage'; // Import UserProfilePage
-// import AddEditBookPage from '../pages/AddEditBookPage'; // Import AddEditBookPage
+import BookDetailPage from '../components/BookPages/BookDetailPage'; // Import BookDetailPage
+import UserProfilePage from '../components/BookPages/UserProfilePage'; // Import UserProfilePage
 
 export const router = createBrowserRouter([
   {
@@ -23,18 +22,14 @@ export const router = createBrowserRouter([
         path: "signup",
         element: <SignupFormPage />,
       },
-      // {
-      //   path: "books/:bookId", // Route for Book Detail Page
-      //   element: <BookDetailPage />,
-      // },
-      // {
-      //   path: "profile", // Route for User Profile Page
-      //   element: <UserProfilePage />,
-      // },
-      // {
-      //   path: "add-edit-book", // Route for Add/Edit Book Page
-      //   element: <AddEditBookPage />,
-      // },
+      {
+        path: "books/:bookId", // Route for Book Detail Page
+        element: <BookDetailPage />,
+      },
+      {
+        path: "profile/:userId", // Updated route for User Profile Page to include userId
+        element: <UserProfilePage />,
+      },
     ],
   },
 ]);

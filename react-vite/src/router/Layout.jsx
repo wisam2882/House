@@ -1,24 +1,29 @@
+// src/Layout.jsx
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { ModalProvider, Modal } from "../context/Modal";
+import { UserProvider } from "../context/UserContext"; // Import UserProvider
 import { thunkAuthenticate } from "../redux/session";
 import Navigation from "../components/Navigation/Navigation";
 
 export default function Layout() {
-  const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
-    dispatch(thunkAuthenticate()).then(() => setIsLoaded(true));
-  }, [dispatch]);
+    const authenticateUser = async () => {
+      await thunkAuthenticate(); // Call the thunk to authenticate the user
+      setIsLoaded(true);
+    };
+    authenticateUser();
+  }, []);
 
   return (
-    <>
+    <UserProvider> {/* Wrap the layout with UserProvider */}
       <ModalProvider>
-        <Navigation />
+        <Navigation /> {/* No need to pass userId as prop */}
         {isLoaded && <Outlet />}
         <Modal />
       </ModalProvider>
-    </>
+    </UserProvider>
   );
 }
