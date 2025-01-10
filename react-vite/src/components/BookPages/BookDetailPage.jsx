@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchBook, addReview, fetchReviews } from '../../redux/booksSlice';
+import './BookDetailPage.css'; // Import the CSS file
 
 const BookDetailPage = () => {
   const { bookId } = useParams(); // Get the book ID from the URL
@@ -40,44 +41,57 @@ const BookDetailPage = () => {
   }
 
   return (
-    <div>
-      <h2>{book.title}</h2>
-      <h3>{book.author}</h3>
-      {book.cover_image && <img src={book.cover_image} alt={book.title} />}
-      <p>{book.description}</p>
+    <div className="book-detail-container">
+      <div className="book-info">
+        <h2 className="book-title">{book.title}</h2>
+        <h3 className="book-details">{book.author}</h3>
+        {book.cover_image && <img className="book-cover" src={book.cover_image} alt={book.title} />}
+        <p className="book-details">{book.description}</p>
 
-      <h4>Reviews:</h4>
-      <ul>
-        {reviews.map((review) => (
-          <li key={review.id}>
-            <strong>Rating: {review.rating}</strong>
-            <p>{review.comment}</p>
-          </li>
-        ))}
-      </ul>
+        <div className="star-rating">
+          <span className="star">★</span>
+          <span className="star">★</span>
+          <span className="star">★</span>
+          <span className="star">★</span>
+          <span className="star">☆</span>
+        </div>
+      </div>
 
-      <form onSubmit={handleReviewSubmit}>
-        <label>
-          Rating:
-          <input
-            type="number"
-            min="1"
-            max="5"
-            value={newReview.rating}
-            onChange={(e) => setNewReview({ ...newReview, rating: e.target.value })}
-            required
-          />
-        </label>
-        <label>
-          Comment:
-          <textarea
-            value={newReview.comment}
-            onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
-            required
-          />
-        </label>
-        <button type="submit">Add Review</button>
-      </form>
+      <div className="comment-section">
+        <h4 className="comment-title">Reviews:</h4>
+        <ul className="comment-list">
+          {reviews.map((review) => (
+            <li className="comment-item" key={review.id}>
+              <span className="comment-author">Rating: {review.rating}</span>
+              <p className="comment-text">{review.comment}</p>
+            </li>
+          ))}
+        </ul>
+
+        <form onSubmit={handleReviewSubmit}>
+          <label>
+            Rating:
+            <input
+              type="number"
+              min="1"
+              max="5"
+              value={newReview.rating}
+              onChange={(e) => setNewReview({ ...newReview, rating: e.target.value })}
+              required
+            />
+          </label>
+          <label>
+            Comment:
+            <textarea
+              className="comment-input"
+              value={newReview.comment}
+              onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
+              required
+            />
+          </label>
+          <button className="submit-comment-button" type="submit">Add Review</button>
+        </form>
+      </div>
     </div>
   );
 };
