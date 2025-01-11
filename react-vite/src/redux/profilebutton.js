@@ -1,3 +1,4 @@
+// Action Types
 const ADD_BOOK_REQUEST = 'ADD_BOOK_REQUEST';
 const ADD_BOOK_SUCCESS = 'ADD_BOOK_SUCCESS';
 const ADD_BOOK_FAILURE = 'ADD_BOOK_FAILURE';
@@ -33,9 +34,9 @@ export const addBook = (bookData) => async (dispatch) => {
             body: JSON.stringify(bookData),
         });
         const data = await response.json();
-        dispatch(addBookSuccess(data.book));
+        dispatch(addBookSuccess(data.book)); // Dispatch success with the new book
     } catch (error) {
-        dispatch(addBookFailure(error.message));
+        dispatch(addBookFailure(error.message)); // Dispatch failure with error message
     }
 };
 
@@ -48,9 +49,9 @@ export const editBook = (bookId, bookData) => async (dispatch) => {
             body: JSON.stringify(bookData),
         });
         const data = await response.json();
-        dispatch(editBookSuccess(data.book));
+        dispatch(editBookSuccess(data.book)); // Dispatch success with the updated book
     } catch (error) {
-        dispatch(editBookFailure(error.message));
+        dispatch(editBookFailure(error.message)); // Dispatch failure with error message
     }
 };
 
@@ -58,9 +59,9 @@ export const deleteBook = (bookId) => async (dispatch) => {
     dispatch(deleteBookRequest());
     try {
         await fetch(`/api/books/books/${bookId}`, { method: 'DELETE' });
-        dispatch(deleteBookSuccess(bookId));
+        dispatch(deleteBookSuccess(bookId)); // Dispatch success with the deleted book ID
     } catch (error) {
-        dispatch(deleteBookFailure(error.message));
+        dispatch(deleteBookFailure(error.message)); // Dispatch failure with error message
     }
 };
 

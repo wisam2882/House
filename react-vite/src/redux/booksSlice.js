@@ -29,6 +29,28 @@ const FETCH_REVIEWS_REQUEST = 'FETCH_REVIEWS_REQUEST';
 const FETCH_REVIEWS_SUCCESS = 'FETCH_REVIEWS_SUCCESS';
 const FETCH_REVIEWS_FAILURE = 'FETCH_REVIEWS_FAILURE';
 
+
+//search bar
+const SEARCH_BOOKS_REQUEST = 'SEARCH_BOOKS_REQUEST';
+const SEARCH_BOOKS_SUCCESS = 'SEARCH_BOOKS_SUCCESS';
+const SEARCH_BOOKS_FAILURE = 'SEARCH_BOOKS_FAILURE';
+
+const searchBooksRequest = () => ({
+  type: SEARCH_BOOKS_REQUEST,
+});
+
+const searchBooksSuccess = (books) => ({
+  type: SEARCH_BOOKS_SUCCESS,
+  books,
+});
+
+const searchBooksFailure = (error) => ({
+  type: SEARCH_BOOKS_FAILURE,
+  error,
+});
+
+
+
 // Action Creators
 const fetchBooksRequest = () => ({
   type: FETCH_BOOKS_REQUEST,
@@ -131,6 +153,23 @@ const fetchReviewsFailure = (error) => ({
   type: FETCH_REVIEWS_FAILURE,
   error,
 });
+
+//search bar
+export const searchBooks = (tag) => async (dispatch) => {
+  dispatch(searchBooksRequest());
+  try {
+    const response = await fetch(`/api/books/books/search?tag=${tag}`);
+    if (!response.ok) {
+      const errorData = await response.text();
+      throw new Error(`Error: ${response.status} - ${errorData}`);
+    }
+    const data = await response.json();
+    dispatch(searchBooksSuccess(data)); // Dispatch success action with the fetched books
+  } catch (error) {
+    console.error('Error searching books:', error);
+    dispatch(searchBooksFailure({ server: error.message }));
+  }
+};
 
 export const fetchReviews = (bookId) => async (dispatch) => {
   dispatch(fetchReviewsRequest());
@@ -287,11 +326,16 @@ const initialState = {
 const booksReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_BOOKS_REQUEST:
-      return {
-        ...state,
-        loading: true,
-        errors: null,
-      };
+    case SEARCH_BOOKS_REQUEST:
+      return { ...state, loading: true, errors: null };
+
+    case FETCH_BOOKS_SUCCESS:
+    case SEARCH_BOOKS_SUCCESS:
+      return { ...state, loading: false, books: action.books }; // Update books with search results
+
+    case FETCH_BOOKS_FAILURE:
+    case SEARCH_BOOKS_FAILURE:
+      return { ...state, loading: false, errors: action.error };
       case 'FETCH_REVIEWS_SUCCESS':
         return {
           ...state,

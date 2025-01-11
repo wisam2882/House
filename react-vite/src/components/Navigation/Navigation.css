@@ -1,71 +1,58 @@
+/* Navigation CSS */
 .navigation-container {
   display: flex; 
   justify-content: space-between; 
   align-items: center; 
   background-color: #333; 
   padding: 10px; 
+  height: 60px; /* Set a fixed height for the navigation bar */
 }
 
+/* Center the navigation links */
 .navigation-list {
   display: flex; 
   justify-content: center; 
   list-style-type: none; 
   padding: 0; 
   margin: 0; 
+  flex-grow: 1; /* Allow the list to grow and take available space */
 }
 
-.nav-button {
-  background-color: #007bff; 
-  color: black; 
-  border: none; 
-  padding: 10px 15px; 
-  
-  cursor: pointer; 
-  text-decoration: none; 
-  display: inline-block; 
-  margin: 0 10px; 
+/* Individual navigation items */
+.nav-item {
+  margin: 0 15px; /* Space between items */
 }
 
-
-
+/* Profile button container */
 .profile-container {
-  margin-left: auto; 
-}
-.nav-logo {
-  width: 50px; 
-  height: auto; 
-  margin-right: 20px; 
-}
-.home-icon {
-  width: 20px; 
-  height: auto; 
-  margin-right: 5px; 
-  vertical-align: middle; 
+  margin-left: auto; /* Push the profile button to the far right */
 }
 
+/* Navigation button styles */
 .nav-button {
   font-family: "Times New Roman", Times, serif;
   color: black; 
   background-color: transparent; 
   border: 2px solid black; 
   padding: 10px 15px; 
- 
   text-decoration: none; 
   cursor: pointer; 
   transition: background-color 0.3s, color 0.3s;
 }
 
-
-
-.profile-button {
-    font-family: "Times New Roman", Times, serif; 
-    color: black; 
-    background-color: transparent;
-    border: 2px solid black; 
-    padding: 10px 15px; 
-    
-    text-decoration: none; 
-    cursor: pointer; 
-    transition: background-color 0.3s, color 0.3s; 
+.nav-button:hover {
+  background-color: #007bff; /* Change background on hover */
+  color: white; /* Change text color on hover */
 }
 
+/* Profile button styles */
+.profile-button {
+  font-family: "Times New Roman", Times, serif; 
+  color: black; 
+  background-color: transparent;
+  border: 2px solid black; 
+  padding: 10px 15px; 
+  text-decoration: none; 
+  cursor: pointer; 
+  transition: background-color 0.3s, color 0.3s; 
+}

@@ -1,6 +1,107 @@
+/* General container for the layout */
+.homepage-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 20px;
+}
+
+
+
+/* Book list container (60% width) */
+.book-list-container {
+  width: 60%;
+  margin-left: 45%; /* Adjust margin to account for the fixed search bar */
+  border: 1px solid #ccc; /* Border for the book list container */
+  border-radius: 8px; /* Rounded corners */
+  padding: 20px; /* Padding inside the container */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+  max-height: calc(100vh - 40px); /* Set max height to allow scrolling */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+/* Search bar styling */
+.search-bar {
+  display: flex;
+  gap: 10px;
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.search-bar button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.search-bar button:hover {
+  background-color: #0056b3;
+}
+
+/* Book list styling */
 .book-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin: 20px; /* Space around the book list */
-  }
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.book-list a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Genre links styling */
+.genre-links {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column; /* Stack links vertically */
+}
+
+.genre-link {
+  cursor: pointer;
+  color: #007bff;
+  margin-bottom: 10px; /* Space between links */
+  text-decoration: underline;
+}
+
+.genre-link:hover {
+  color: #0056b3;
+}
+
+/* Style for the Categories heading */
+h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 1.5em;
+}
+
+/* Featured Books heading */
+.book-list-container h2 {
+  margin-bottom: 20px;
+}
+
+/* Search bar container (fixed position) */
+/* Search bar container (fixed position) */
+.search-bar-container {
+  width: 40%;
+  position: fixed; /* Fix the position */
+  top: 110px; /* Increase this value to move it down further */
+  left: 20px; /* Distance from the left */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border: 1px solid #ccc; /* Border for the search bar container */
+  border-radius: 8px; /* Rounded corners */
+  padding: 20px; /* Padding inside the container */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+}
