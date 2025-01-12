@@ -1,4 +1,3 @@
-// components/BookPage/HomePage.jsx
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchBooks, searchBooks } from '../../redux/booksSlice'; 
@@ -15,6 +14,7 @@ const HomePage = () => {
 
     const [query, setQuery] = useState('');
     const [selectedGenre, setSelectedGenre] = useState('');
+    const [sortOption, setSortOption] = useState(''); // State for sort option
 
     const genres = [
         "Fiction", "Mystery", "Fantasy", "Romance", "Science Fiction",
@@ -27,8 +27,18 @@ const HomePage = () => {
 
     const handleGenreClick = (genre) => {
         setSelectedGenre(genre);
-        setQuery(''); // Clear the query when a genre is selected
-        dispatch(searchBooks('', genre)); // Dispatch search with the selected genre
+        setQuery(genre); // Set the query to the selected genre
+        dispatch(searchBooks(genre, '')); // Dispatch search with the selected genre
+    };
+
+    // Sorting function
+    const sortedBooks = () => {
+        if (sortOption === 'recently-added') {
+            return [...books].sort((a, b) => new Date(b.addedDate) - new Date(a.addedDate)); // Assuming 'addedDate' is a property in your book object
+        } else if (sortOption === 'highest-rating') {
+            return [...books].sort((a, b) => b.rating - a.rating); // Assuming 'rating' is a property in your book object
+        }
+        return books; // Return original order if no sort option is selected
     };
 
     if (loading) {
@@ -43,8 +53,22 @@ const HomePage = () => {
         <div className="homepage-container">
             {/* Left side: Search bar and genre links */}
             <div className="search-bar-container">
-                <SearchBar selectedGenre={selectedGenre} />
+                <SearchBar selectedGenre={selectedGenre} setQuery={setQuery} />
                 
+                {/* Sort By Dropdown */}
+                <div className="sort-dropdown">
+                    <label htmlFor="sort">Sort By:</label>
+                    <select 
+                        id="sort" 
+                        value={sortOption} 
+                        onChange={(e) => setSortOption(e.target.value)}
+                    >
+                        <option value="">Select an option</option>
+                        <option value="recently-added">Recently Added</option>
+                        <option value="highest-rating">Highest Rating</option>
+                    </select>
+                </div>
+
                 {/* Categories Section */}
                 <h3>Categories</h3>
                 <div className="genre-links">
@@ -63,11 +87,11 @@ const HomePage = () => {
             {/* Right side: Book list */}
             <div className="book-list-container">
                 <h2>Featured Books</h2>
-                {books.length === 0 ? (
+                {sortedBooks().length === 0 ? (
                     <p>No books available.</p>
                 ) : (
                     <div className="book-list">
-                        {books.map((book) => (
+                        {sortedBooks().map((book) => (
                             <Link to={`/books/${book.id}`} key={book.id}>
                                 <BookCard book={book} />
                             </Link>

@@ -1,20 +1,31 @@
 .book-card {
-    background-color: #f9f9f9; /* Light background for the card */
-    border: 1px solid #ddd; /* Light border */
-    border-radius: 8px; /* Rounded corners */
-    width: 200px; /* Fixed width for the card */
-    margin: 10px; /* Space between cards */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    text-align: center; /* Center text */
-    overflow: hidden; /* Prevent overflow */
-  }
-  
-  .book-card img {
-    width: 100%; /* Make image responsive */
-    height: auto; /* Maintain aspect ratio */
-  }
-  
-  .book-card h3 {
-    font-size: 1.2em; /* Title size */
-    margin: 10px 0; /* Margin around title */
-  }
+  background-color: #f9f9f9; /* Light background for the card */
+  border: 1px solid #ddd; /* Light border */
+  border-radius: 8px; /* Rounded corners */
+  width: 600px; /* Set width for the card to 600 pixels */
+  margin: 10px; /* Space between cards */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  text-align: center; /* Center text */
+  overflow: hidden; /* Prevent overflow */
+  transition: transform 0.2s; /* Smooth transition for hover effect */
+}
+
+.book-card:hover {
+  transform: scale(1.05); /* Slightly enlarge card on hover */
+}
+
+.book-card img {
+  width: 100%; /* Make image responsive */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.book-card h3 {
+  font-size: 1.2em; /* Title size */
+  margin: 10px 0; /* Margin around title */
+}
+
+.book-card p {
+  font-size: 0.9em; /* Smaller font size for author and description */
+  margin: 5px 0; /* Margin around paragraphs */
+  color: #555; /* Darker color for text */
+}

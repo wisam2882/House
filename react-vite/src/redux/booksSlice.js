@@ -35,6 +35,8 @@ const SEARCH_BOOKS_REQUEST = 'SEARCH_BOOKS_REQUEST';
 const SEARCH_BOOKS_SUCCESS = 'SEARCH_BOOKS_SUCCESS';
 const SEARCH_BOOKS_FAILURE = 'SEARCH_BOOKS_FAILURE';
 
+
+
 const searchBooksRequest = () => ({
   type: SEARCH_BOOKS_REQUEST,
 });
@@ -276,20 +278,20 @@ export const deleteBook = (bookId) => async (dispatch) => {
   }
 };
 
-// Thunk Action Creator for Fetching Books
 export const fetchBooks = () => async (dispatch) => {
   dispatch(fetchBooksRequest());
   try {
-    const response = await fetch('/api/books/books');
-    if (!response.ok) {
-      const errorData = await response.text(); // Get the error response as text
-      throw new Error(`Error: ${response.status} - ${errorData}`);
-    }
-    const data = await response.json();
-    dispatch(fetchBooksSuccess(data));
+      const response = await fetch('/api/books/books');
+      if (!response.ok) {
+          const errorData = await response.text();
+          throw new Error(`Error: ${response.status} - ${errorData}`);
+      }
+      const data = await response.json();
+      console.log('Fetched books data:', data); // Log the fetched data
+      dispatch(fetchBooksSuccess(data));
   } catch (error) {
-    console.error('Error fetching books:', error);
-    dispatch(fetchBooksFailure({ server: error.message }));
+      console.error('Error fetching books:', error);
+      dispatch(fetchBooksFailure({ server: error.message }));
   }
 };
 
@@ -311,16 +313,28 @@ export const fetchBook = (id) => async (dispatch) => {
   }
 };
 
+// Action Types
+const RESET_SEARCH = 'RESET_SEARCH';
+
+// Action Creator for resetting search
+export const resetSearch = () => ({
+    type: RESET_SEARCH,
+});
+
+
 // Initial State
 const initialState = {
-  userBooks: [], // Ensure this is initialized as an empty array
-  userProfile: {}, // New property for user profile
+  userBooks: [],
+  userProfile: {},
   books: [],
   loading: false,
   errors: null,
-  selectedBook: null, // New property for the selected book
-  reviews: [], // New property for reviews
+  selectedBook: null,
+  reviews: [],
+  selectedGenre: '', // New property for selected genre
+  searchQuery: '', // New property for search query
 };
+
 
 // Reducer
 const booksReducer = (state = initialState, action) => {
@@ -336,107 +350,109 @@ const booksReducer = (state = initialState, action) => {
     case FETCH_BOOKS_FAILURE:
     case SEARCH_BOOKS_FAILURE:
       return { ...state, loading: false, errors: action.error };
-      case 'FETCH_REVIEWS_SUCCESS':
-        return {
-          ...state,
-          loading: false,
-          reviews: action.reviews, // Update reviews for the specific book
-        };
-  
-      case 'FETCH_REVIEWS_FAILURE':
-        return {
-          ...state,
-          loading: false,
-          errors: action.error,
-        };
-  
-    case FETCH_BOOKS_SUCCESS:
+
+    case 'FETCH_REVIEWS_SUCCESS':
       return {
         ...state,
-        books: action.books,
         loading: false,
+        reviews: action.reviews, // Update reviews for the specific book
       };
-    case FETCH_BOOKS_FAILURE:
+
+    case 'FETCH_REVIEWS_FAILURE':
       return {
         ...state,
         loading: false,
         errors: action.error,
       };
-    case FETCH_BOOK_REQUEST:
-      return {
-        ...state,
-        loading: true,
-        errors: null,
-      };
+
     case FETCH_BOOK_SUCCESS:
       return {
         ...state,
         selectedBook: action.book, // Store the fetched book
         loading: false,
       };
+
     case FETCH_BOOK_FAILURE:
       return {
         ...state,
         loading: false,
         errors: action.error,
       };
+
     case FETCH_USER_PROFILE_REQUEST:
       return {
         ...state,
         loading: true,
         errors: null,
       };
+
     case FETCH_USER_PROFILE_SUCCESS:
       return {
         ...state,
         userProfile: action.profile, // Store the fetched user profile
         loading: false,
       };
+
     case FETCH_USER_PROFILE_FAILURE:
       return {
         ...state,
         loading: false,
         errors: action.error,
       };
+
     case FETCH_USER_BOOKS_REQUEST:
       return {
         ...state,
         loading: true,
         errors: null,
       };
+
     case FETCH_USER_BOOKS_SUCCESS:
       return {
         ...state,
         userBooks: action.books, // Store the fetched user books
         loading: false,
       };
+
     case FETCH_USER_BOOKS_FAILURE:
       return {
         ...state,
         loading: false,
         errors: action.error,
       };
-      case ADD_REVIEW_REQUEST:
-        return {
-          ...state,
-          loading: true,
-          errors: null,
-        };
-      case ADD_REVIEW_SUCCESS:
-        return {
-          ...state,
-          reviews: [...state.reviews, action.review], // Add the new review to the state
-          loading: false,
-        };
-      case ADD_REVIEW_FAILURE:
-        return {
-          ...state,
-          loading: false,
-          errors: action.error, // Store the error if adding the review fails
-        };
-      default:
-        return state;
-    }
-  };
-  
-  export default booksReducer;
+
+    case ADD_REVIEW_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        errors: null,
+      };
+
+    case ADD_REVIEW_SUCCESS:
+      return {
+        ...state,
+        reviews: [...state.reviews, action.review], // Add the new review to the state
+        loading: false,
+      };
+
+    case ADD_REVIEW_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        errors: action.error, // Store the error if adding the review fails
+      };
+
+    case RESET_SEARCH: // Handle the reset search action
+      return {
+        ...state,
+        selectedGenre: '', // Reset selected genre
+        searchQuery: '', // Reset search query
+        books: initialState.books, // Reset books to initial state if needed
+      };
+
+    default:
+      return state;
+  }
+};
+
+export default booksReducer;

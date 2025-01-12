@@ -1,4 +1,3 @@
-// src/components/Navigation/Navigation.jsx
 import { NavLink } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
 import ProfileButton from "./ProfileButton";
@@ -29,3 +28,13 @@ function Navigation() {
 }
 
 export default Navigation;
+
+
+
+
+
+
+
+
+
+{/* <NavLink to="/" className="nav-button">Home</NavLink> */}
