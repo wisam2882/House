@@ -10,14 +10,18 @@
 
 /* Book list container (60% width) */
 .book-list-container {
-  width: 60%;
+
   margin-left: 45%; /* Adjust margin to account for the fixed search bar */
   border: 1px solid #ccc; /* Border for the book list container */
   border-radius: 8px; /* Rounded corners */
-  padding: 20px; /* Padding inside the container */
+
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
   max-height: calc(100vh - 40px); /* Set max height to allow scrolling */
   overflow-y: auto; /* Enable vertical scrolling */
+  width: 640px; /* Set width for the book list */
+  padding: 10px; /* Add some padding */
+
+
 }
 
 /* Search bar styling */
@@ -104,6 +108,7 @@ h3 {
   border-radius: 8px; /* Rounded corners */
   padding: 20px; /* Padding inside the container */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+  border-right: 1px solid #ccc; /
 }
 .homepage-container {
   display: flex; /* Use flexbox for layout */
@@ -118,10 +123,7 @@ h3 {
   border-right: 1px solid #ccc; /* Optional: Add a right border for separation */
 }
 
-.book-list-container {
-  width: 640px; /* Set width for the book list */
-  padding: 10px; /* Add some padding */
-}
+
 
 .genre-links {
   display: flex; /* Use flexbox for genre links */
