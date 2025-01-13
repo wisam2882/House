@@ -28,13 +28,16 @@ const deleteBookFailure = (error) => ({ type: DELETE_BOOK_FAILURE, error });
 export const addBook = (bookData) => async (dispatch) => {
     dispatch(addBookRequest());
     try {
-        const response = await fetch('/api/books/books', {
+        const response = await fetch('/api/books/books', { // Ensure the endpoint is correct
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(bookData),
+            body: bookData, // Send FormData directly
         });
         const data = await response.json();
-        dispatch(addBookSuccess(data.book)); // Dispatch success with the new book
+        if (response.ok) {
+            dispatch(addBookSuccess(data.book)); // Dispatch success with the new book
+        } else {
+            dispatch(addBookFailure(data.error || 'Failed to add book')); // Dispatch failure with error message
+        }
     } catch (error) {
         dispatch(addBookFailure(error.message)); // Dispatch failure with error message
     }
@@ -45,11 +48,14 @@ export const editBook = (bookId, bookData) => async (dispatch) => {
     try {
         const response = await fetch(`/api/books/books/${bookId}`, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(bookData),
+            body: bookData, // Send FormData directly
         });
         const data = await response.json();
-        dispatch(editBookSuccess(data.book)); // Dispatch success with the updated book
+        if (response.ok) {
+            dispatch(editBookSuccess(data.book)); // Dispatch success with the updated book
+        } else {
+            dispatch(editBookFailure(data.error || 'Failed to edit book')); // Dispatch failure with error message
+        }
     } catch (error) {
         dispatch(editBookFailure(error.message)); // Dispatch failure with error message
     }
@@ -58,8 +64,13 @@ export const editBook = (bookId, bookData) => async (dispatch) => {
 export const deleteBook = (bookId) => async (dispatch) => {
     dispatch(deleteBookRequest());
     try {
-        await fetch(`/api/books/books/${bookId}`, { method: 'DELETE' });
-        dispatch(deleteBookSuccess(bookId)); // Dispatch success with the deleted book ID
+        const response = await fetch(`/api/books/books/${bookId}`, { method: 'DELETE' });
+        if (response.ok) {
+            dispatch(deleteBookSuccess(bookId)); // Dispatch success with the deleted book ID
+        } else {
+            const data = await response.json();
+            dispatch(deleteBookFailure(data.error || 'Failed to delete book')); // Dispatch failure with error message
+        }
     } catch (error) {
         dispatch(deleteBookFailure(error.message)); // Dispatch failure with error message
     }

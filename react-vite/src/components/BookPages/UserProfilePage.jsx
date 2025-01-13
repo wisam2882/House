@@ -12,6 +12,7 @@ const UserProfilePage = () => {
     const userBooks = useSelector((state) => state.books.userBooks);
     const loading = useSelector((state) => state.books.loading);
     const errors = useSelector((state) => state.books.errors);
+    const [coverImage, setCoverImage] = useState(null);
 
     const [newBook, setNewBook] = useState({ title: '', author: '', genre: '', description: '' });
     const [editingBook, setEditingBook] = useState(null);
@@ -26,11 +27,19 @@ const UserProfilePage = () => {
 
     const handleAddBook = (e) => {
         e.preventDefault();
-        dispatch(addBook(newBook)).then(() => {
-            // Optionally, you can fetch the user books again to ensure the latest state
+        const formData = new FormData();
+        formData.append('title', newBook.title);
+        formData.append('author', newBook.author);
+        formData.append('genre', newBook.genre);
+        formData.append('description', newBook.description);
+        formData.append('cover_image', coverImage); // Add the cover image file
+    
+        dispatch(addBook(formData)).then(() => {
             dispatch(fetchUserBooks(userId));
         });
+    
         setNewBook({ title: '', author: '', genre: '', description: '' });
+        setCoverImage(null); // Reset the cover image state
         setIsPopupOpen(false);
     };
 
@@ -122,6 +131,11 @@ const UserProfilePage = () => {
                                     placeholder="Description"
                                     value={newBook.description}
                                     onChange={(e) => setNewBook({ ...newBook, description: e.target.value })}
+                                />
+                                <input
+                                    type="file"
+                                    accept="images/*"
+                                    onChange={(e) => setCoverImage(e.target.files[0])}
                                 />
                                 <button type="submit">Add Book</button>
                             </form>

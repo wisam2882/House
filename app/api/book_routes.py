@@ -7,10 +7,30 @@ from flask_login import login_required
 
 book_routes = Blueprint('books', __name__)
 
+
+#aws stuff: 
+def upload_image_to_s3(file):
+    try:
+        s3.upload_fileobj(file, os.environ.get("S3_BUCKET"), file.filename)
+        return f"https://{os.environ.get('S3_BUCKET')}.s3.amazonaws.com/{file.filename}"
+    except Exception as e:
+        print(f"Error uploading file: {e}")
+        return None
+
+
+#updated add_book route to handle aws:
 @book_routes.route('/books', methods=['POST'])
 def add_book():
-    data = request.get_json()
+    if 'cover_image' not in request.files:
+        return jsonify({"error": "No cover image provided."}), 400
+
+    cover_image = request.files['cover_image']
     
+    # Upload the image to S3
+    cover_image_url = upload_image_to_s3(cover_image)
+    if not cover_image_url:
+        return jsonify({"error": "Failed to upload cover image."}), 500
+
     # Retrieve user_id from the current user
     user_id = current_user.id if current_user.is_authenticated else None
     
@@ -21,16 +41,64 @@ def add_book():
         new_book = Book(
             title=data['title'],
             author=data['author'],
-            cover_image=data.get('cover_image'),
+            cover_image=cover_image_url,  # Use the URL from S3
             description=data.get('description'),
             genre=data.get('genre'),
-            user_id=user_id  # Use the user_id from the current user
+            user_id=user_id
         )
         db.session.add(new_book)
         db.session.commit()
         return jsonify({"message": "Book successfully added.", "book": new_book.to_dict()}), 201
     except Exception as e:
         return jsonify({"error": "Validation errors", "details": str(e)}), 400
+
+
+
+
+#Aws delete book: 
+@book_routes.route('/books/<int:book_id>', methods=['DELETE'])
+def delete_book(book_id):
+    book = Book.query.get(book_id)
+    if not book:
+        return jsonify({"error": "Book not found"}), 404
+
+    # Delete the cover image from S3
+    try:
+        s3.delete_object(Bucket=os.environ.get("S3_BUCKET"), Key=book.cover_image.split('/')[-1])
+    except Exception as e:
+        print(f"Error deleting file: {e}")
+
+    db.session.delete(book)
+    db.session.commit()
+    return jsonify({"message": "Book successfully deleted."}), 204
+
+
+#add a book without aws
+
+# @book_routes.route('/books', methods=['POST'])
+# def add_book():
+#     data = request.get_json()
+    
+#     # Retrieve user_id from the current user
+#     user_id = current_user.id if current_user.is_authenticated else None
+    
+#     if user_id is None:
+#         return jsonify({"error": "You must be logged in to create a new book."}), 401  # Unauthorized
+
+#     try:
+#         new_book = Book(
+#             title=data['title'],
+#             author=data['author'],
+#             cover_image=data.get('cover_image'),
+#             description=data.get('description'),
+#             genre=data.get('genre'),
+#             user_id=user_id  # Use the user_id from the current user
+#         )
+#         db.session.add(new_book)
+#         db.session.commit()
+#         return jsonify({"message": "Book successfully added.", "book": new_book.to_dict()}), 201
+#     except Exception as e:
+#         return jsonify({"error": "Validation errors", "details": str(e)}), 400
 
 # Edit Book
 @book_routes.route('/books/<int:book_id>', methods=['PUT'])
@@ -51,16 +119,16 @@ def edit_book(book_id):
     except Exception as e:
         return jsonify({"error": "Validation errors", "details": str(e)}), 400
 
-# Delete Book
-@book_routes.route('/books/<int:book_id>', methods=['DELETE'])
-def delete_book(book_id):
-    book = Book.query.get(book_id)
-    if not book:
-        return jsonify({"error": "Book not found"}), 404
+# Delete Book without aws
+# @book_routes.route('/books/<int:book_id>', methods=['DELETE'])
+# def delete_book(book_id):
+#     book = Book.query.get(book_id)
+#     if not book:
+#         return jsonify({"error": "Book not found"}), 404
 
-    db.session.delete(book)
-    db.session.commit()
-    return jsonify({"message": "Book successfully deleted."}), 204
+#     db.session.delete(book)
+#     db.session.commit()
+#     return jsonify({"message": "Book successfully deleted."}), 204
 
 # Get All Books
 @book_routes.route('/books', methods=['GET'])

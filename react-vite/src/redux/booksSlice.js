@@ -10,9 +10,9 @@ const FETCH_USER_PROFILE_REQUEST = 'FETCH_USER_PROFILE_REQUEST';
 const FETCH_USER_PROFILE_SUCCESS = 'FETCH_USER_PROFILE_SUCCESS';
 const FETCH_USER_PROFILE_FAILURE = 'FETCH_USER_PROFILE_FAILURE';
 
-const DELETE_BOOK_REQUEST = 'DELETE_BOOK_REQUEST';
-const DELETE_BOOK_SUCCESS = 'DELETE_BOOK_SUCCESS';
-const DELETE_BOOK_FAILURE = 'DELETE_BOOK_FAILURE';
+// const DELETE_BOOK_REQUEST = 'DELETE_BOOK_REQUEST';
+// const DELETE_BOOK_SUCCESS = 'DELETE_BOOK_SUCCESS';
+// const DELETE_BOOK_FAILURE = 'DELETE_BOOK_FAILURE';
 
 const FETCH_USER_BOOKS_REQUEST = 'FETCH_USER_BOOKS_REQUEST'; // Added action type
 const FETCH_USER_BOOKS_SUCCESS = 'FETCH_USER_BOOKS_SUCCESS'; // Added action type
@@ -96,19 +96,19 @@ const fetchUserProfileFailure = (error) => ({
   error,
 });
 
-const deleteBookRequest = () => ({
-  type: DELETE_BOOK_REQUEST,
-});
+// const deleteBookRequest = () => ({
+//   type: DELETE_BOOK_REQUEST,
+// });
 
-const deleteBookSuccess = (bookId) => ({
-  type: DELETE_BOOK_SUCCESS,
-  bookId,
-});
+// const deleteBookSuccess = (bookId) => ({
+//   type: DELETE_BOOK_SUCCESS,
+//   bookId,
+// });
 
-const deleteBookFailure = (error) => ({
-  type: DELETE_BOOK_FAILURE,
-  error,
-});
+// const deleteBookFailure = (error) => ({
+//   type: DELETE_BOOK_FAILURE,
+//   error,
+// });
 
 // Action Creators for User Books
 const fetchUserBooksRequest = () => ({
@@ -260,23 +260,23 @@ export const fetchUserProfile = (userId) => async (dispatch) => {
   }
 };
 
-// Thunk Action Creator for Deleting a Book
-export const deleteBook = (bookId) => async (dispatch) => {
-  dispatch(deleteBookRequest());
-  try {
-    const response = await fetch(`/api/books/${bookId}`, {
-      method: 'DELETE',
-    });
-    if (!response.ok) {
-      const errorData = await response.text();
-      throw new Error(`Error: ${response.status} - ${errorData}`);
-    }
-    dispatch(deleteBookSuccess(bookId));
-  } catch (error) {
-    console.error('Error deleting book:', error);
-    dispatch(deleteBookFailure({ server: error.message }));
-  }
-};
+// // Thunk Action Creator for Deleting a Book
+// export const deleteBook = (bookId) => async (dispatch) => {
+//   dispatch(deleteBookRequest());
+//   try {
+//     const response = await fetch(`/api/books/${bookId}`, {
+//       method: 'DELETE',
+//     });
+//     if (!response.ok) {
+//       const errorData = await response.text();
+//       throw new Error(`Error: ${response.status} - ${errorData}`);
+//     }
+//     dispatch(deleteBookSuccess(bookId));
+//   } catch (error) {
+//     console.error('Error deleting book:', error);
+//     dispatch(deleteBookFailure({ server: error.message }));
+//   }
+// };
 
 export const fetchBooks = () => async (dispatch) => {
   dispatch(fetchBooksRequest());
