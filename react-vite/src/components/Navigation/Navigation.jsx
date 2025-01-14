@@ -37,4 +37,3 @@ export default Navigation;
 
 
 
-{/* <NavLink to="/" className="nav-button">Home</NavLink> */}

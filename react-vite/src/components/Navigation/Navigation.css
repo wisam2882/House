@@ -1,12 +1,5 @@
 /* Navigation CSS */
-.navigation-container {
-  display: flex; 
-  justify-content: space-between; 
-  align-items: center; 
-  background-color: #333; 
-  padding: 10px; 
-  height: 60px; /* Set a fixed height for the navigation bar */
-}
+
 
 /* Center the navigation links */
 .navigation-list {
@@ -55,4 +48,51 @@
   text-decoration: none; 
   cursor: pointer; 
   transition: background-color 0.3s, color 0.3s; 
+}
+
+
+
+/* Navigation.css */
+
+/* General styles for the navigation */
+.navigation-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f8f9fa; /* Background color for the nav */
+}
+
+/* Dropdown menu styles */
+.dropdown-menu {
+  position: absolute; /* Position it absolutely */
+  top: 60px; /* Adjust based on your nav height */
+  left: 0; /* Align to the left side of the screen */
+  background-color: white; /* Background color for the dropdown */
+  border: 1px solid #ccc; /* Border for the dropdown */
+  border-radius: 4px; /* Rounded corners */
+  padding: 10px; /* Padding inside the dropdown */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+  z-index: 1000; /* Ensure it appears above other elements */
+}
+
+/* Search bar container styles */
+.search-bar-container {
+  margin-bottom: 10px; /* Space between search bar and genre list */
+}
+
+/* Genre and Categories list styles */
+.genre-links, .categories-list {
+  margin-top: 10px; /* Space above the lists */
+}
+
+.genre-link, .category-link {
+  cursor: pointer; /* Change cursor to pointer for clickable links */
+  margin: 5px 0; /* Add some margin between links */
+  color: #007bff; /* Change color for links */
+  text-decoration: underline; /* Underline links */
+}
+
+.genre-link:hover, .category-link:hover {
+  color: #0056b3; /* Change color on hover */
 }

@@ -1,149 +1,127 @@
 /* General container for the layout */
-.homepage-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin: 20px;
-}
-
 
 
 /* Book list container (60% width) */
 .book-list-container {
-
-  margin-left: 45%; /* Adjust margin to account for the fixed search bar */
+  align-items: center;
   border: 1px solid #ccc; /* Border for the book list container */
   border-radius: 8px; /* Rounded corners */
-
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
-  max-height: calc(100vh - 40px); /* Set max height to allow scrolling */
-  overflow-y: auto; /* Enable vertical scrolling */
-  width: 640px; /* Set width for the book list */
   padding: 10px; /* Add some padding */
-
-
 }
 
-/* Search bar styling */
-.search-bar {
-  display: flex;
-  gap: 10px;
+
+/* HomePage.css */
+
+/* Container for the homepage */
+
+
+/* Container for the book list */
+.book-list-container {
+    margin-top: 20px; /* Space above the book list */
 }
 
-.search-bar input {
-  flex: 1;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.search-bar button {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.search-bar button:hover {
-  background-color: #0056b3;
-}
-
-/* Book list styling */
+/* Styles for the book list */
 .book-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+    display: flex; /* Use flexbox for layout */
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+    justify-content: flex-start; /* Align items to the start */
+    gap: 20px; /* Space between book cards */
 }
 
-.book-list a {
-  text-decoration: none;
-  color: inherit;
+/* Individual book card styles can be defined in BookCard.css */
+
+/* HomePage.css */
+
+/* Search Bar Styles */
+.search-bar-container {
+  display: flex; /* Align items in a row */
+  align-items: center; /* Center items vertically */
+  margin-bottom: 20px; /* Space below the search bar */
 }
 
-/* Genre links styling */
+.search-bar-container input[type="text"] {
+  padding: 10px; /* Padding inside the input */
+  border: 2px solid #007bff; /* Border color */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 16px; /* Font size */
+  width: 250px; /* Width of the search bar */
+  transition: border-color 0.3s; /* Smooth transition for border color */
+}
+
+.search-bar-container input[type="text"]:focus {
+  border-color: #0056b3; /* Darker border on focus */
+  outline: none; /* Remove default outline */
+}
+
+.search-bar-container button {
+  padding: 10px 15px; /* Padding inside the button */
+  margin-left: 10px; /* Space between input and button */
+  background-color: #007bff; /* Button background color */
+  color: white; /* Button text color */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+.search-bar-container button:hover {
+  background-color: #0056b3; /* Darker background on hover */
+}
+
+/* Categories Section Styles */
 .genre-links {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column; /* Stack links vertically */
+  display: flex; /* Align items in a row */
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
+  margin-top: 10px; /* Space above the genre links */
 }
 
 .genre-link {
-  cursor: pointer;
-  color: #007bff;
-  margin-bottom: 10px; /* Space between links */
-  text-decoration: underline;
+  background-color: #f0f0f0; /* Background color for genre links */
+  padding: 8px 12px; /* Padding inside the genre link */
+  margin: 5px; /* Space between genre links */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
 }
 
 .genre-link:hover {
-  color: #0056b3;
+  background-color: #007bff; /* Change background on hover */
+  color: white; /* Change text color on hover */
+  transform: scale(1.05); /* Slightly enlarge on hover */
 }
 
-/* Style for the Categories heading */
-h3 {
-  margin-top: 20px;
-  margin-bottom: 10px;
-  font-size: 1.5em;
+/* Sort Dropdown Styles */
+.sort-dropdown {
+  margin-top: 20px; /* Space above the dropdown */
+  display: flex; /* Align items in a row */
+  align-items: center; /* Center items vertically */
+  margin-right: 20px; /* Space between label and dropdown */
 }
 
-/* Featured Books heading */
-.book-list-container h2 {
-  margin-bottom: 20px;
+.sort-dropdown label {
+  margin-right: 10px; /* Space between label and dropdown */
+  font-weight: bold; /* Make the label bold */
+  color: #333; /* Dark color for the label */
+  
 }
 
-/* Search bar container (fixed position) */
-/* Search bar container (fixed position) */
-.search-bar-container {
-  width: 40%;
-  position: fixed; /* Fix the position */
-  top: 130px; /* Increase this value to move it down further */
-  left: 700px; /* Distance from the left */
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  border: 1px solid #ccc; /* Border for the search bar container */
-  border-radius: 8px; /* Rounded corners */
-  padding: 20px; /* Padding inside the container */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
-  border-right: 1px solid #ccc; /
-}
-.homepage-container {
-  display: flex; /* Use flexbox for layout */
-  justify-content: space-between; /* Space between left and right sections */
-  padding: 20px; /* Add padding around the container */
-  border: 1px solid transparent; /* Optional: Add a border around the container */
+.sort-dropdown select {
+  padding: 10px; /* Padding inside the dropdown */
+  border: 2px solid #007bff; /* Border color */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 16px; /* Font size */
+  background-color: white; /* Background color */
+  transition: border-color 0.3s; /* Smooth transition for border color */
+  cursor: pointer; /* Pointer cursor on hover */
 }
 
-.search-bar-container {
-  width: 300px; /* Set width for the search bar and categories */
-  padding: 10px; /* Add some padding */
-  border-right: 1px solid #ccc; /* Optional: Add a right border for separation */
+.sort-dropdown select:focus {
+  border-color: #0056b3; /* Darker border on focus */
+  outline: none; /* Remove default outline */
 }
 
-
-
-.genre-links {
-  display: flex; /* Use flexbox for genre links */
-  flex-direction: column; /* Stack genre links vertically */
+/* Optional: Style for dropdown options */
+.sort-dropdown select option {
+  padding: 10px; /* Padding for options */
 }
-
-.genre-link {
-  cursor: pointer; /* Change cursor to pointer for clickable links */
-  margin: 5px 0; /* Add some margin between genre links */
-  color: #007bff; /* Change color for genre links */
-  text-decoration: underline; /* Underline genre links */
-}
-
-.genre-link:hover {
-  color: #0056b3; /* Change color on hover */
-}
-
-.book-list {
-  display: flex; /* Use flexbox for book cards */
-  flex-wrap: wrap; /* Allow wrapping of book cards */
-  gap: 1px; /* Add space between book cards */
-}
-
