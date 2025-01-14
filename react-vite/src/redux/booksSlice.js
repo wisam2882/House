@@ -157,10 +157,17 @@ const fetchReviewsFailure = (error) => ({
 });
 
 //search bar
-export const searchBooks = (tag) => async (dispatch) => {
+// Search books action
+export const searchBooks = (query, genre) => async (dispatch) => {
+  if (!query.trim()) {
+    // Do nothing if the query is empty (this will be handled by fetchBooks)
+    return;
+  }
+
   dispatch(searchBooksRequest());
   try {
-    const response = await fetch(`/api/books/books/search?tag=${tag}`);
+    const url = `/api/books/books/search?tag=${query}&genre=${genre || ''}`;
+    const response = await fetch(url);
     if (!response.ok) {
       const errorData = await response.text();
       throw new Error(`Error: ${response.status} - ${errorData}`);
@@ -170,6 +177,22 @@ export const searchBooks = (tag) => async (dispatch) => {
   } catch (error) {
     console.error('Error searching books:', error);
     dispatch(searchBooksFailure({ server: error.message }));
+  }
+};
+// Fetch all books action
+export const fetchBooks = () => async (dispatch) => {
+  dispatch(fetchBooksRequest());
+  try {
+    const response = await fetch(`/api/books/books`);
+    if (!response.ok) {
+      const errorData = await response.text();
+      throw new Error(`Error: ${response.status} - ${errorData}`);
+    }
+    const data = await response.json();
+    dispatch(fetchBooksSuccess(data)); // Dispatch success action with the fetched books
+  } catch (error) {
+    console.error('Error fetching books:', error);
+    dispatch(fetchBooksFailure({ server: error.message }));
   }
 };
 
@@ -278,22 +301,28 @@ export const deleteBook = (bookId) => async (dispatch) => {
   }
 };
 
-export const fetchBooks = () => async (dispatch) => {
-  dispatch(fetchBooksRequest());
-  try {
-      const response = await fetch('/api/books/books');
-      if (!response.ok) {
-          const errorData = await response.text();
-          throw new Error(`Error: ${response.status} - ${errorData}`);
-      }
-      const data = await response.json();
-      console.log('Fetched books data:', data); // Log the fetched data
-      dispatch(fetchBooksSuccess(data));
-  } catch (error) {
-      console.error('Error fetching books:', error);
-      dispatch(fetchBooksFailure({ server: error.message }));
-  }
-};
+// export const fetchBooks = () => async (dispatch) => {
+//   dispatch(fetchBooksRequest());
+//   try {
+//       const response = await fetch('/api/books/books');
+
+//       // Check if the response is not OK (status code outside the range 200-299)
+//       if (!response.ok) {
+//           const errorData = await response.text();
+//           throw new Error(`Error: ${response.status} - ${errorData}`);
+//       }
+
+//       const data = await response.json();
+//       console.log('Fetched books data:', data); // Log the fetched data for debugging
+
+//       // Dispatch success action with the fetched data
+//       dispatch(fetchBooksSuccess(data));
+//   } catch (error) {
+//       console.error('Error fetching books:', error);
+//       // Dispatch failure action with the error message
+//       dispatch(fetchBooksFailure({ server: error.message }));
+//   }
+// };
 
 // Thunk Action Creator for Fetching a Single Book
 export const fetchBook = (id) => async (dispatch) => {

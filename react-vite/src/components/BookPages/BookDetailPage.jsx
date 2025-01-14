@@ -43,10 +43,17 @@ const BookDetailPage = () => {
   return (
     <div className="book-detail-container">
       <div className="book-info">
-        <h2 className="book-title">{book.title}</h2>
-        <h3 className="book-details">{book.author}</h3>
-        {book.cover_image && <img className="book-cover" src={book.cover_image} alt={book.title} />}
-        <p className="book-details">{book.description}</p>
+     
+        
+        <div className="book-card">
+                            <img src={book.cover_image} />
+                            <h3>{book.title}</h3>
+                             <p>{book.author}</p>
+                          
+                            </div>
+        <div className="profile-book-description">
+                            <p>{book.description}</p>
+                            </div>
 
         <div className="star-rating">
           <span className="star">★</span>

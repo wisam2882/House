@@ -20,8 +20,9 @@ const SearchBar = ({ selectedGenre }) => {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 required
+                className="search-input" // Optional: Add a class for the input if needed
             />
-            <button type="submit">Search</button>
+            <button type="submit" className="search-button">Search</button> {/* Add class name here */}
         </form>
     );
 };

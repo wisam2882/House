@@ -125,3 +125,39 @@
 .sort-dropdown select option {
   padding: 10px; /* Padding for options */
 }
+
+/* Search Bar Button */
+.search-bar-button {
+  background-color: #007bff; /* Primary color */
+  color: white; /* Text color */
+  padding: 10px 20px; /* Padding for the button */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
+  font-size: 16px; /* Font size */
+}
+
+.search-bar-button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+  transform: scale(1.05); /* Slightly enlarge the button */
+}
+
+/* Genre Links */
+.special-genre-link {
+  display: inline-block; /* Allows padding and margin */
+  margin: 5px 10px; /* Spacing between genre links */
+  padding: 8px 12px; /* Padding for the links */
+  background-color: #f0f0f0; /* Light background */
+  color: #333; /* Text color */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
+  font-weight: 500; /* Semi-bold text */
+}
+
+.special-genre-link:hover {
+  background-color: #0a0101; /* Darker shade on hover */
+  transform: translateY(-2px); /* Slightly lift the link */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+}

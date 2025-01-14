@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchBooks, searchBooks } from '../../redux/booksSlice'; 
@@ -5,6 +6,7 @@ import BookCard from '../Book/BookCard';
 import { Link } from 'react-router-dom'; 
 import SearchBar from '../Book/SearchBar'; 
 import "./HomePage.css";
+import coolBackground from '../../../public/cool-background.png';
 
 const HomePage = () => {
     const books = useSelector((state) => state.books.books);
@@ -50,8 +52,17 @@ const HomePage = () => {
     }
 
     return (
-        <div className="homepage-container">
-            {/* Left side: Search bar and genre links */}
+        
+        <div 
+            className="homepage-container" 
+            style={{ 
+                backgroundImage: `url(${coolBackground})`, 
+                backgroundSize: 'cover', 
+                backgroundPosition: 'center', 
+                backgroundRepeat: 'no-repeat', 
+                height: '100vh' // Optional: Set height to full viewport height
+            }}
+        >
             <div className="search-bar-container">
                 <SearchBar selectedGenre={selectedGenre} setQuery={setQuery} />
                 
@@ -74,17 +85,17 @@ const HomePage = () => {
                 <div className="genre-links">
                     {genres.map((genre, index) => (
                         <span 
-                            key={index} 
-                            className="genre-link" 
-                            onClick={() => handleGenreClick(genre)}
-                        >
-                            {genre}
-                        </span>
-                    ))}
-                </div>
+                        key={index} 
+                        className="genre-link special-genre-link" 
+            onClick={() => handleGenreClick(genre)}
+        >
+            {genre}
+        </span>
+    ))}
+</div>
             </div>
 
-            {/* Right side: Book list */}
+          
             <div className="book-list-container">
                 <h2>Featured Books</h2>
                 {sortedBooks().length === 0 ? (

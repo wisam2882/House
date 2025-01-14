@@ -80,7 +80,9 @@ def get_book_detail(book_id):
 @book_routes.route('/books/search', methods=['GET'])
 def search_books():
     tag = request.args.get('tag', '')
-    books = Book.query.filter(Book.genre.ilike(f"%{tag}%")).all()
+    books = Book.query.filter(
+    (Book.title.ilike(f"%{tag}%")) | (Book.genre.ilike(f"%{tag}%"))
+).all()
     return jsonify([book.to_dict() for book in books]), 200
 
 # Add Review

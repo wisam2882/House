@@ -1,13 +1,15 @@
-// src/Layout.jsx
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { ModalProvider, Modal } from "../context/Modal";
 import { UserProvider } from "../context/UserContext"; // Import UserProvider
-import { thunkAuthenticate } from "../redux/session";
+import { thunkAuthenticate } from "../redux/session"; // Import thunkAuthenticate
+import { useDispatch } from "react-redux"; // Import useDispatch
+import { fetchBooks } from "../redux/booksSlice"; // Import fetchBooks
 import Navigation from "../components/Navigation/Navigation";
 
 export default function Layout() {
   const [isLoaded, setIsLoaded] = useState(false);
+  const dispatch = useDispatch(); // Initialize dispatch
 
   useEffect(() => {
     const authenticateUser = async () => {
@@ -17,10 +19,15 @@ export default function Layout() {
     authenticateUser();
   }, []);
 
+  const handleHomeClick = () => {
+    console.log("Home button clicked"); // Debugging log
+    dispatch(fetchBooks()); // Fetch all books when home is clicked
+  };
+
   return (
     <UserProvider> {/* Wrap the layout with UserProvider */}
       <ModalProvider>
-        <Navigation /> {/* No need to pass userId as prop */}
+        <Navigation onHomeClick={handleHomeClick} /> {/* Pass the function to Navigation */}
         {isLoaded && <Outlet />}
         <Modal />
       </ModalProvider>

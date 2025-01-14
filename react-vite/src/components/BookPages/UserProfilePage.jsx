@@ -3,6 +3,9 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserBooks, fetchUserProfile } from '../../redux/booksSlice';
 import { addBook, editBook, deleteBook } from '../../redux/profilebutton';
+import bookImage from '../../../public/book3.jpg';
+import bookImage5 from '../../../public/book5.jpg';
+import bookImage4 from '../../../public/book4.jpg';
 import './UserProfilePage.css';
 
 const UserProfilePage = () => {
@@ -64,19 +67,31 @@ const UserProfilePage = () => {
         <div className="profile-container">
             <div className="profile-info">
                 <header>
-                    <h1>User Profile</h1>
-                    <h2>{userProfile.username}</h2>
-                    <p>Email: {userProfile.email}</p>
+                <div className="profile-header">
+                <h1>User Profile</h1>
+                 <h2>Welcome, {userProfile.username}</h2>
+                </div>
                 </header>
+                <img src={bookImage} alt="Book 1" className="profile-image" />
+                <img src={bookImage5} alt="Book 1" className="profile-image" />
+                <img src={bookImage4} alt="Book 1" className="profile-image" />
             </div>
             <div className="book-info">
-                <h3>Books Added by User</h3>
+                <h3>Books Added by {userProfile.username}</h3>
                 <ul>
                     {userBooks.length > 0 ? (
                         userBooks.map((book) => (
+                            
                             <li key={book.id}>
-                                <h4>{book.title}</h4>
-                                <p>{book.author}</p>
+                            <div className="book-card">
+                            <img src={book.cover_image} />
+                            <h3>{book.title}</h3>
+                             <p>{book.author}</p>
+                          
+                            </div>
+                            <div className="profile-book-description">
+                            <p>{book.description}</p>
+                            </div>
                                 <button onClick={() => setEditingBook(book)}>Edit</button>
                                 <button onClick={() => handleDeleteBook(book.id)}>Delete</button>
                             </li>

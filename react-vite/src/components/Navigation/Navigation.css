@@ -50,7 +50,15 @@
   transition: background-color 0.3s, color 0.3s; 
 }
 
+.nav-icon {
+  margin-right: 20px; /* Space between the icon and the navigation list */
+}
 
+.home-icon {
+  width: 100px; /* Set a width for the icon */
+  height: auto; /* Maintain aspect ratio */
+  cursor: pointer; /* Change cursor to pointer on hover */
+}
 
 /* Navigation.css */
 
