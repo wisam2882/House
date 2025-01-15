@@ -3,9 +3,9 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserBooks, fetchUserProfile } from '../../redux/booksSlice';
 import { addBook, editBook, deleteBook } from '../../redux/profilebutton';
-import bookImage from '../../../public/book3.jpg';
-import bookImage5 from '../../../public/book5.jpg';
-import bookImage4 from '../../../public/book4.jpg';
+import bookImage from '../../images/book3.jpg';
+import bookImage5 from '../../images/book5.jpg';
+import bookImage4 from '../../images/book4.jpg';
 import './UserProfilePage.css';
 
 const UserProfilePage = () => {

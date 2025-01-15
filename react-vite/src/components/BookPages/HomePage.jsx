@@ -6,7 +6,7 @@ import BookCard from '../Book/BookCard';
 import { Link } from 'react-router-dom'; 
 import SearchBar from '../Book/SearchBar'; 
 import "./HomePage.css";
-import coolBackground from '../../../public/cool-background.png';
+import coolBackground from '../../images/cool-background.png';
 
 const HomePage = () => {
     const books = useSelector((state) => state.books.books);

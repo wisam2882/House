@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
 import ProfileButton from "./ProfileButton";
-import homeIcon from '../../../public/book2.jpg'; // Import the icon
+import homeIcon from '../../images/book2.jpg'; // Import the icon
 import "./Navigation.css";
 
 function Navigation({ onHomeClick }) {
