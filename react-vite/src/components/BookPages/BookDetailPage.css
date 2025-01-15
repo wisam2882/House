@@ -1,100 +1,146 @@
-/* Main container for the book detail page */
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+/* Book Detail Container */
 .book-detail-container {
-    display: flex;
-    flex-direction: column; /* Stack elements vertically */
-    padding: 20px; /* Padding around the container */
-    max-width: 800px; /* Maximum width for the detail page */
-    margin: auto; /* Center the container */
-    border: 1px solid #ccc; /* Border around the container */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
-  }
-  
-  /* Book information section */
-  .book-info {
-    margin-bottom: 20px; /* Space below the book info */
-  }
-  
-  /* Book title styling */
-  .book-title {
-    font-size: 2em; /* Larger font size for the title */
-    margin: 0; /* Remove default margin */
-  }
-  
-  /* Book details styling (author, description) */
-  .book-details {
-    font-size: 1.2em; /* Slightly larger font for details */
-    margin: 5px 0; /* Margin around details */
-  }
-  
-  /* Book cover image styling */
-  .book-cover {
-    width: 100%; /* Make the cover image responsive */
-    height: auto; /* Maintain aspect ratio */
-    border-radius: 8px; /* Rounded corners for the image */
-    margin: 10px 0; /* Margin around the image */
-  }
-  
-  /* Star rating styling */
-  .star-rating {
-    font-size: 1.5em; /* Size for the star rating */
-    color: gold; /* Color for the stars */
-  }
-  
-  /* Comment section styling */
-  .comment-section {
-    border-top: 1px solid #ccc; /* Top border to separate sections */
-    padding-top: 20px; /* Padding above the comments */
-  }
-  
-  /* Comment title styling */
-  .comment-title {
-    font-size: 1.5em; /* Font size for the reviews title */
-    margin-bottom: 10px; /* Space below the title */
-  }
-  
-  /* Comment list styling */
-  .comment-list {
-    list-style-type: none; /* Remove default list styling */
-    padding: 0; /* Remove padding */
-  }
-  
-  /* Individual comment item styling */
-  .comment-item {
-    border-bottom: 1px solid #eee; /* Bottom border for each comment */
-    padding: 10px 0; /* Padding around each comment */
-  }
-  
-  /* Comment author styling */
-  .comment-author {
-    font-weight: bold; /* Bold for the rating */
-  }
-  
-  /* Comment text styling */
-  .comment-text {
-    margin: 5px 0; /* Margin around the comment text */
-  }
-  
-  /* Comment input styling */
-  .comment-input {
-    width: 100%; /* Full width for the input */
-    padding: 10px; /* Padding inside the input */
-    border: 1px solid #ccc; /* Border for the input */
-    border-radius: 4px; /* Rounded corners */
-    margin-top: 10px; /* Space above the input */
-  }
-  
-  /* Submit button styling */
-  .submit-comment-button {
-    padding: 10px 20px; /* Padding for the button */
-    background-color: #007bff; /* Button color */
-    color: white; /* Text color */
-    border: none; /* Remove border */
-    border-radius: 4px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor on hover */
-    margin-top: 10px; /* Space above the button */
-  }
-  
-  .submit-comment-button:hover {
-    background-color: #0056b3; /* Darker color on hover */
-  }
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Book Info Section */
+.book-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.book-card {
+  margin-bottom: 20px;
+}
+
+.book-card img {
+  width: 200px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.book-card h3 {
+  font-size: 24px;
+  margin: 10px 0;
+  color: #333;
+}
+
+.book-card p {
+  font-size: 18px;
+  color: #555;
+}
+
+/* Book Description */
+.profile-book-description {
+  margin: 20px 0;
+  font-size: 16px;
+  color: #666;
+}
+
+/* Star Rating */
+.star-rating {
+  margin: 10px 0;
+}
+
+.star {
+  color: gold;
+  font-size: 20px;
+}
+
+/* Comment Section */
+.comment-section {
+  margin-top: 30px;
+}
+
+.comment-title {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.comment-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.comment-item {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  transition: background-color 0.3s;
+}
+
+.comment-item:hover {
+  background-color: #f1f1f1;
+}
+
+.comment-author {
+  font-weight: bold;
+  color: #333;
+}
+
+.comment-text {
+  margin: 5px 0;
+  color: #555;
+}
+
+/* Review Form */
+form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+input[type="number"],
+.comment-input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+input[type="number"]:focus,
+.comment-input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.submit-comment-button {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.submit-comment-button:hover {
+  background-color: #0056b3;
+}

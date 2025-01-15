@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { searchBooks } from '../../redux/booksSlice'; 
+import "./searchbar.css";
 
 const SearchBar = ({ selectedGenre }) => {
     const [query, setQuery] = useState('');
@@ -16,13 +17,13 @@ const SearchBar = ({ selectedGenre }) => {
         <form onSubmit={handleSearch} className="search-bar">
             <input
                 type="text"
-                placeholder="Search by title..."
+                placeholder="Search by title Or Genre"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 required
-                className="search-input" // Optional: Add a class for the input if needed
+                className="search-input"
             />
-            <button type="submit" className="search-button">Search</button> {/* Add class name here */}
+      <button type="submit" className="search-button-main">Search</button>
         </form>
     );
 };

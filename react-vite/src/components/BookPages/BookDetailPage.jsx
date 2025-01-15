@@ -43,18 +43,14 @@ const BookDetailPage = () => {
   return (
     <div className="book-detail-container">
       <div className="book-info">
-     
-        
         <div className="book-card">
-                            <img src={book.cover_image} />
-                            <h3>{book.title}</h3>
-                             <p>{book.author}</p>
-                          
-                            </div>
+          <img src={book.cover_image} alt={book.title} />
+          <h3>{book.title}</h3>
+          <p>{book.author}</p>
+        </div>
         <div className="profile-book-description">
-                            <p>{book.description}</p>
-                            </div>
-
+          <p>{book.description}</p>
+        </div>
         <div className="star-rating">
           <span className="star">★</span>
           <span className="star">★</span>
@@ -68,9 +64,37 @@ const BookDetailPage = () => {
         <h4 className="comment-title">Reviews:</h4>
         <ul className="comment-list">
           {reviews.map((review) => (
-            <li className="comment-item" key={review.id}>
-              <span className="comment-author">Rating: {review.rating}</span>
-              <p className="comment-text">{review.comment}</p>
+            <li className={`comment-item depth-${review.depth}`} key={review.id}>
+              <div className="comment">
+                <div className="user"></div>
+                <div>
+                  <div className="comment__body">
+                    <p dir="auto">{review.comment}</p>
+                  </div>
+                  <div className="comment__actions">
+                    <span className="comment-author">Rating: {review.rating}</span>
+                  </div>
+                </div>
+              </div>
+              {review.replies && review.replies.length > 0 && (
+                <ul className="reply-list">
+                  {review.replies.map((reply) => (
+                    <li className={`comment-item depth-${reply.depth}`} key={reply.id}>
+                      <div className="comment">
+                        <div className="user"></div>
+                        <div>
+                          <div className="comment__body">
+                            <p dir="auto">{reply.comment}</p>
+                          </div>
+                          <div className="comment__actions">
+                            <span className="comment-author">Rating: {reply.rating}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </li>
           ))}
         </ul>

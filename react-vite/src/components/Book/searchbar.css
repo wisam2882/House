@@ -1,0 +1,64 @@
+/* Search Bar Styles */
+.search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 600px;
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+    transition: box-shadow 0.3s ease;
+}
+
+.search-bar:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Input Styles */
+.search-input {
+    flex: 1;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 50px 0 0 50px;
+    font-size: 16px;
+    outline: none;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    background: transparent;
+}
+
+.search-input::placeholder {
+    color: #aaa;
+}
+
+.search-input:focus {
+    background: #fff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+form .search-button-main {
+    background-color: #000 !important; /* Set background color to black */
+    padding: 15px 30px;
+    border: none;
+    border-radius: 0 50px 50px 0;
+    background: linear-gradient(135deg, #007bff, #0056b3); /* Gradient background */
+    color: white; /* Text color */
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+    outline: none; /* Remove outline */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+
+.search-button-main:hover {
+    background: linear-gradient(135deg, #0056b3, #007bff); /* Reverse gradient on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+}
+
+.search-button-main:active {
+    transform: translateY(0); /* Reset lift effect on click */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Reset shadow */
+}
