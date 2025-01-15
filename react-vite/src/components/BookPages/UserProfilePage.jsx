@@ -16,9 +16,10 @@ const UserProfilePage = () => {
     const loading = useSelector((state) => state.books.loading);
     const errors = useSelector((state) => state.books.errors);
 
-    const [newBook, setNewBook] = useState({ title: '', author: '', genre: '', description: '' });
+    const [newBook, setNewBook] = useState({ title: '', author: '', genre: '', description: '', cover_image: '' });
     const [editingBook, setEditingBook] = useState(null);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const [popupType, setPopupType] = useState(null); // New state for popup type
 
     useEffect(() => {
         if (userId && userId !== 'undefined') {
@@ -30,25 +31,23 @@ const UserProfilePage = () => {
     const handleAddBook = (e) => {
         e.preventDefault();
         dispatch(addBook(newBook)).then(() => {
-            // Optionally, you can fetch the user books again to ensure the latest state
             dispatch(fetchUserBooks(userId));
         });
-        setNewBook({ title: '', author: '', genre: '', description: '' });
+        setNewBook({ title: '', author: '', genre: '', description: '', cover_image: '' });
         setIsPopupOpen(false);
     };
 
     const handleEditBook = (e) => {
         e.preventDefault();
         dispatch(editBook(editingBook.id, editingBook)).then(() => {
-            // Optionally, you can fetch the user books again to ensure the latest state
             dispatch(fetchUserBooks(userId));
         });
         setEditingBook(null);
+        setIsPopupOpen(false);
     };
 
     const handleDeleteBook = (bookId) => {
         dispatch(deleteBook(bookId)).then(() => {
-            // Optionally, you can fetch the user books again to ensure the latest state
             dispatch(fetchUserBooks(userId));
         });
     };
@@ -67,10 +66,10 @@ const UserProfilePage = () => {
         <div className="profile-container">
             <div className="profile-info">
                 <header>
-                <div className="profile-header">
-                <h1>User Profile</h1>
-                 <h2>Welcome, {userProfile.username}</h2>
-                </div>
+                    <div className="profile-header">
+                        <h1>User Profile</h1>
+                        <h2>Welcome, {userProfile.username}</h2>
+                    </div>
                 </header>
                 <img src={bookImage} alt="Book 1" className="profile-image" />
                 <img src={bookImage5} alt="Book 1" className="profile-image" />
@@ -81,18 +80,22 @@ const UserProfilePage = () => {
                 <ul>
                     {userBooks.length > 0 ? (
                         userBooks.map((book) => (
-                            
                             <li key={book.id}>
-                            <div className="book-card">
-                            <img src={book.cover_image} />
-                            <h3>{book.title}</h3>
-                             <p>{book.author}</p>
-                          
-                            </div>
-                            <div className="profile-book-description">
-                            <p>{book.description}</p>
-                            </div>
-                                <button onClick={() => { setEditingBook(book); setIsPopupOpen(true); }}>Edit</button>
+                                <div className="book-card">
+                                    <img src={book.cover_image} alt="Book Cover" />
+                                    <h3>{book.title}</h3>
+                                    <p>{book.author}</p>
+                                </div>
+                                <div className="profile-book-description">
+                                    <p>{book.description}</p>
+                                </div>
+                                <button onClick={() => { 
+                                    setEditingBook(book); 
+                                    setPopupType('edit'); // Set popup type to 'edit'
+                                    setIsPopupOpen(true); 
+                                }}>
+                                    Edit
+                                </button>
                                 <button onClick={() => handleDeleteBook(book.id)}>Delete</button>
                             </li>
                         ))
@@ -101,11 +104,14 @@ const UserProfilePage = () => {
                     )}
                 </ul>
 
-                <button className="open-popup-button" onClick={() => setIsPopupOpen(true)}>
+                <button className="open-popup-button" onClick={() => {
+                    setPopupType('add'); // Set popup type to 'add'
+                    setIsPopupOpen(true);
+                }}>
                     Add a New Book
                 </button>
 
-                {isPopupOpen && (
+                {isPopupOpen && popupType === 'add' && (
                     <div className="overlay">
                         <div className="popup">
                             <button className="close-button" onClick={() => setIsPopupOpen(false)}>
@@ -150,44 +156,49 @@ const UserProfilePage = () => {
                     </div>
                 )}
 
-                {editingBook && (
-                    <div>
-                        <h3>Edit Book</h3>
-                        <form onSubmit={handleEditBook}>
-                            <input
-                                type="text"
-                                placeholder="Title"
-                                value={editingBook.title}
-                                onChange={(e) => setEditingBook({ ...editingBook, title: e.target.value })}
-                                required
-                            />
-                            <input
-                                type="text"
-                                placeholder="Author"
-                                value={editingBook.author}
-                                onChange={(e) => setEditingBook({ ...editingBook, author: e.target.value })}
-                                required
-                            />
-                            <input
-                                type="text"
-                                placeholder="Genre"
-                                value={editingBook.genre}
-                                onChange={(e) => setEditingBook({ ...editingBook, genre: e.target.value })}
-                            />
-                            <textarea
-                                placeholder="Description"
-                                value={editingBook.description}
-                                onChange={(e) => setEditingBook({ ...editingBook, description: e.target.value })}
-                            />
-                            <input
-                                type="text"
-                                placeholder="Cover Image URL"
-                                value={editingBook.cover_image || ''} 
-                                onChange={(e) => setEditingBook({ ...editingBook, cover_image: e.target.value })}
-                            />
-                            <button type="submit">Save Changes</button>
-                            <button onClick={() => setEditingBook(null)}>Cancel</button>
-                        </form>
+                {popupType === 'edit' && editingBook && (
+                    <div className="overlay">
+                        <div className="popup">
+                            <button className="close-button" onClick={() => setIsPopupOpen(false)}>
+                                &times;
+                            </button>
+                            <h3>Edit Book</h3>
+                            <form onSubmit={handleEditBook}>
+                                <input
+                                    type="text"
+                                    placeholder="Title"
+                                    value={editingBook.title}
+                                    onChange={(e) => setEditingBook({ ...editingBook, title: e.target.value })}
+                                    required
+                                />
+                                <input
+                                    type="text"
+                                    placeholder="Author"
+                                    value={editingBook.author}
+                                    onChange={(e) => setEditingBook({ ...editingBook, author: e.target.value })}
+                                    required
+                                />
+                                <input
+                                    type="text"
+                                    placeholder="Genre"
+                                    value={editingBook.genre}
+                                    onChange={(e) => setEditingBook({ ...editingBook, genre: e.target.value })}
+                                />
+                                <textarea
+                                    placeholder="Description"
+                                    value={editingBook.description}
+                                    onChange={(e) => setEditingBook({ ...editingBook, description: e.target.value })}
+                                />
+                                <input
+                                    type="text"
+                                    placeholder="Cover Image URL"
+                                    value={editingBook.cover_image || ''}
+                                    onChange={(e) => setEditingBook({ ...editingBook, cover_image: e.target.value })}
+                                />
+                                <button type="submit">Save Changes</button>
+                                <button onClick={() => setEditingBook(null)}>Cancel</button>
+                            </form>
+                        </div>
                     </div>
                 )}
             </div>

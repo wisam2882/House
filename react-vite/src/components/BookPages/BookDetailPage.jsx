@@ -28,6 +28,11 @@ const BookDetailPage = () => {
     setNewReview({ rating: '', comment: '' }); // Reset the form
   };
 
+  // Function to render stars based on rating
+  const renderStars = (rating) => {
+    return '★'.repeat(rating) + '☆'.repeat(5 - rating); // Full stars for rating, empty stars for the rest
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -42,26 +47,72 @@ const BookDetailPage = () => {
 
   return (
     <div className="book-detail-container">
+      <h3>{book.title}</h3>
+      <p>{book.author}</p>
+
       <div className="book-info">
         <div className="book-card">
           <img src={book.cover_image} alt={book.title} />
-          <h3>{book.title}</h3>
-          <p>{book.author}</p>
         </div>
+        
         <div className="profile-book-description">
+          <h2>Summary</h2>
           <p>{book.description}</p>
         </div>
-        <div className="star-rating">
-          <span className="star">★</span>
-          <span className="star">★</span>
-          <span className="star">★</span>
-          <span className="star">★</span>
-          <span className="star">☆</span>
+
+        {/* Custom Star Rating */}
+        <div className="rating-container">
+          <input
+            type="radio"
+            name="rating"
+            id="rate1"
+            value="1"
+            checked={newReview.rating === '1'}
+            onChange={(e) => setNewReview({ ...newReview, rating: e.target.value })}
+          />
+          <label htmlFor="rate1">★</label>
+          <input
+            type="radio"
+            name="rating"
+            id="rate2"
+            value="2"
+            checked={newReview.rating === '2'}
+            onChange={(e) => setNewReview({ ...newReview, rating: e.target.value })}
+          />
+          <label htmlFor="rate2">★</label>
+          <input
+            type="radio"
+            name="rating"
+            id="rate3"
+            value="3"
+            checked={newReview.rating === '3'}
+            onChange={(e) => setNewReview({ ...newReview, rating: e.target.value })}
+          />
+          <label htmlFor="rate3">★</label>
+          <input
+            type="radio"
+            name="rating"
+            id="rate4"
+            value="4"
+            checked={newReview.rating === '4'}
+            onChange={(e) => setNewReview({ ...newReview, rating: e.target.value })}
+          />
+          <label htmlFor="rate4">★</label>
+          <input
+            type="radio"
+            name="rating"
+            id="rate5"
+            value="5"
+            checked={newReview.rating === '5'}
+            onChange={(e) => setNewReview({ ...newReview, rating: e.target.value })}
+          />
+          <label htmlFor="rate5">★</label>
+          <div className="rating-value"></div>
         </div>
       </div>
 
       <div className="comment-section">
-        <h4 className="comment-title">Reviews:</h4>
+        <h4 className="comment-title">Discussion:</h4>
         <ul className="comment-list">
           {reviews.map((review) => (
             <li className={`comment-item depth-${review.depth}`} key={review.id}>
@@ -72,7 +123,9 @@ const BookDetailPage = () => {
                     <p dir="auto">{review.comment}</p>
                   </div>
                   <div className="comment__actions">
-                    <span className="comment-author">Rating: {review.rating}</span>
+                    <span className="comment-author">
+                      Judgment: {renderStars(review.rating)}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -87,7 +140,9 @@ const BookDetailPage = () => {
                             <p dir="auto">{reply.comment}</p>
                           </div>
                           <div className="comment__actions">
-                            <span className="comment-author">Rating: {reply.rating}</span>
+                            <span className="comment-author">
+                              Rating: {renderStars(reply.rating)}
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -100,17 +155,6 @@ const BookDetailPage = () => {
         </ul>
 
         <form onSubmit={handleReviewSubmit}>
-          <label>
-            Rating:
-            <input
-              type="number"
-              min="1"
-              max="5"
-              value={newReview.rating}
-              onChange={(e) => setNewReview({ ...newReview, rating: e.target.value })}
-              required
-            />
-          </label>
           <label>
             Comment:
             <textarea

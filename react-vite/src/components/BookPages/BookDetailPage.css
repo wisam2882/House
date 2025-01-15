@@ -8,7 +8,7 @@ body {
 
 /* Book Detail Container */
 .book-detail-container {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 20px auto;
   padding: 20px;
   background-color: #fff;
@@ -29,7 +29,7 @@ body {
 }
 
 .book-card img {
-  width: 200px;
+  width: 400px;
   height: auto;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -144,3 +144,48 @@ input[type="number"]:focus,
 .submit-comment-button:hover {
   background-color: #0056b3;
 }
+
+
+
+.rating-container {
+  display: flex;
+  gap: 10px;
+}
+
+.rating-container input {
+  display: none; /* Hide the radio buttons */
+}
+
+.rating-container label {
+  font-size: 24px;
+  cursor: pointer;
+  color: gray; /* Default color */
+}
+
+/* Highlight stars on hover */
+.rating-container input:hover + label,
+.rating-container input:hover ~ input:checked + label {
+  color: gold; /* Highlight on hover */
+}
+
+/* Highlight selected stars */
+.rating-container input:checked + label {
+  color: gold; /* Highlight the selected star */
+}
+
+/* Highlight all previous stars when one is selected */
+.rating-container input:checked ~ label {
+  color: gold; /* Highlight all previous stars */
+}
+
+/* Ensure only the selected and previous stars are gold */
+.rating-container input:checked ~ label {
+  color: gold; /* Highlight all previous stars */
+}
+
+/* Reset color for stars after the selected one */
+.rating-container input:checked + label ~ label {
+  color: gray; /* Reset color for stars after the selected one */
+}
+
+
