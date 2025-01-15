@@ -92,7 +92,7 @@ const UserProfilePage = () => {
                             <div className="profile-book-description">
                             <p>{book.description}</p>
                             </div>
-                                <button onClick={() => setEditingBook(book)}>Edit</button>
+                                <button onClick={() => { setEditingBook(book); setIsPopupOpen(true); }}>Edit</button>
                                 <button onClick={() => handleDeleteBook(book.id)}>Delete</button>
                             </li>
                         ))
@@ -138,6 +138,12 @@ const UserProfilePage = () => {
                                     value={newBook.description}
                                     onChange={(e) => setNewBook({ ...newBook, description: e.target.value })}
                                 />
+                                <input
+                                    type="text"
+                                    placeholder="Cover Image URL"
+                                    value={newBook.cover_image}
+                                    onChange={(e) => setNewBook({ ...newBook, cover_image: e.target.value })}
+                                />
                                 <button type="submit">Add Book</button>
                             </form>
                         </div>
@@ -172,6 +178,12 @@ const UserProfilePage = () => {
                                 placeholder="Description"
                                 value={editingBook.description}
                                 onChange={(e) => setEditingBook({ ...editingBook, description: e.target.value })}
+                            />
+                            <input
+                                type="text"
+                                placeholder="Cover Image URL"
+                                value={editingBook.cover_image || ''} 
+                                onChange={(e) => setEditingBook({ ...editingBook, cover_image: e.target.value })}
                             />
                             <button type="submit">Save Changes</button>
                             <button onClick={() => setEditingBook(null)}>Cancel</button>
