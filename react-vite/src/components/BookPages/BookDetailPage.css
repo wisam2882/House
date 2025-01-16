@@ -1,4 +1,3 @@
-/* General Styles */
 body {
   font-family: 'Arial', sans-serif;
   background-color: #f4f4f4;
@@ -6,7 +5,6 @@ body {
   padding: 0;
 }
 
-/* Book Detail Container */
 .book-detail-container {
   max-width: 1200px;
   margin: 20px auto;
@@ -16,7 +14,6 @@ body {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Book Info Section */
 .book-info {
   display: flex;
   flex-direction: column;
@@ -46,24 +43,12 @@ body {
   color: #555;
 }
 
-/* Book Description */
 .profile-book-description {
   margin: 20px 0;
   font-size: 16px;
   color: #666;
 }
 
-/* Star Rating */
-.star-rating {
-  margin: 10px 0;
-}
-
-.star {
-  color: gold;
-  font-size: 20px;
-}
-
-/* Comment Section */
 .comment-section {
   margin-top: 30px;
 }
@@ -102,7 +87,6 @@ body {
   color: #555;
 }
 
-/* Review Form */
 form {
   display: flex;
   flex-direction: column;
@@ -145,47 +129,42 @@ input[type="number"]:focus,
   background-color: #0056b3;
 }
 
-
-
 .rating-container {
   display: flex;
   gap: 10px;
 }
 
 .rating-container input {
-  display: none; /* Hide the radio buttons */
+  display: none;
 }
 
 .rating-container label {
-  font-size: 24px;
+  font-size: 40px;
   cursor: pointer;
-  color: gray; /* Default color */
+  color: gray;
+  transition: color 0.2s ease;
 }
 
-/* Highlight stars on hover */
-.rating-container input:hover + label,
-.rating-container input:hover ~ input:checked + label {
-  color: gold; /* Highlight on hover */
-}
-
-/* Highlight selected stars */
-.rating-container input:checked + label {
-  color: gold; /* Highlight the selected star */
-}
-
-/* Highlight all previous stars when one is selected */
+.rating-container label:hover,
+.rating-container input:checked + label,
 .rating-container input:checked ~ label {
-  color: gold; /* Highlight all previous stars */
+  color: gold;
+  text-shadow: 0 0 10px gold, 0 0 20px gold;
 }
 
-/* Ensure only the selected and previous stars are gold */
-.rating-container input:checked ~ label {
-  color: gold; /* Highlight all previous stars */
-}
-
-/* Reset color for stars after the selected one */
 .rating-container input:checked + label ~ label {
-  color: gray; /* Reset color for stars after the selected one */
+  color: gray;
 }
 
+.comment__actions {
+  font-size: 18px;
+  color: #333;
+}
 
+.comment__actions span {
+  font-size: 16px;
+}
+
+.comment__actions span span {
+  font-size: 18px;
+}

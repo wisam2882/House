@@ -4,5 +4,5 @@ __pycache__/
 .venv
 .DS_Store
 .vscode/
-.python_proj
-.python_proj.pub
+Pipfile.lock
+package-lock.json

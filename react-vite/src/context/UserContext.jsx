@@ -1,5 +1,4 @@
-// src/context/UserContext.jsx
-import React, { createContext, useContext, useEffect } from 'react';
+import { createContext, useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { thunkAuthenticate } from '../redux/session'; 
 

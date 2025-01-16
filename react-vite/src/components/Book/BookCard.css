@@ -3,7 +3,7 @@
   border: 1px solid #ddd; /* Light border */
   border-radius: 8px; /* Rounded corners */
   width: 500px;
-  height: 400px; /* Set width for the card to 600 pixels */
+  height: 500px; /* Set width for the card to 600 pixels */
   margin: 10px; /* Space between cards */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
   text-align: center; /* Center text */

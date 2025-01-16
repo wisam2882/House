@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchBook, addReview, fetchReviews } from '../../redux/booksSlice';
@@ -66,8 +66,8 @@ const BookDetailPage = () => {
             type="radio"
             name="rating"
             id="rate1"
-            value="1"
-            checked={newReview.rating === '1'}
+            value="5"
+            checked={newReview.rating === '5'}
             onChange={(e) => setNewReview({ ...newReview, rating: e.target.value })}
           />
           <label htmlFor="rate1">★</label>
@@ -75,8 +75,8 @@ const BookDetailPage = () => {
             type="radio"
             name="rating"
             id="rate2"
-            value="2"
-            checked={newReview.rating === '2'}
+            value="4"
+            checked={newReview.rating === '4'}
             onChange={(e) => setNewReview({ ...newReview, rating: e.target.value })}
           />
           <label htmlFor="rate2">★</label>
@@ -93,8 +93,8 @@ const BookDetailPage = () => {
             type="radio"
             name="rating"
             id="rate4"
-            value="4"
-            checked={newReview.rating === '4'}
+            value="2"
+            checked={newReview.rating === '2'}
             onChange={(e) => setNewReview({ ...newReview, rating: e.target.value })}
           />
           <label htmlFor="rate4">★</label>
@@ -102,8 +102,8 @@ const BookDetailPage = () => {
             type="radio"
             name="rating"
             id="rate5"
-            value="5"
-            checked={newReview.rating === '5'}
+            value="1"
+            checked={newReview.rating === '1'}
             onChange={(e) => setNewReview({ ...newReview, rating: e.target.value })}
           />
           <label htmlFor="rate5">★</label>

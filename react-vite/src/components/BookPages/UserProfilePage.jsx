@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useParams, Link } from 'react-router-dom'; 
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserBooks, fetchUserProfile } from '../../redux/booksSlice';
 import { addBook, editBook, deleteBook } from '../../redux/profilebutton';
@@ -76,16 +76,26 @@ const UserProfilePage = () => {
                 <img src={bookImage4} alt="Book 1" className="profile-image" />
             </div>
             <div className="book-info">
+            <button className="open-popup-button" onClick={() => {
+                    setPopupType('add'); 
+                    setIsPopupOpen(true);
+                }}>
+                    Add a New Book
+                </button>
                 <h3>Books Added by {userProfile.username}</h3>
                 <ul>
                     {userBooks.length > 0 ? (
                         userBooks.map((book) => (
                             <li key={book.id}>
-                                <div className="book-card">
-                                    <img src={book.cover_image} alt="Book Cover" />
-                                    <h3>{book.title}</h3>
-                                    <p>{book.author}</p>
-                                </div>
+                                
+                                <h3>{book.title}</h3>
+                                <p>{book.author}</p>
+                                
+                                <Link to={`/books/${book.id}`}>
+                                    
+                                        <img src={book.cover_image} alt="Book Cover" />
+      
+                                </Link>
                                 <div className="profile-book-description">
                                     <p>{book.description}</p>
                                 </div>
@@ -104,19 +114,12 @@ const UserProfilePage = () => {
                     )}
                 </ul>
 
-                <button className="open-popup-button" onClick={() => {
-                    setPopupType('add'); // Set popup type to 'add'
-                    setIsPopupOpen(true);
-                }}>
-                    Add a New Book
-                </button>
+      
 
                 {isPopupOpen && popupType === 'add' && (
                     <div className="overlay">
                         <div className="popup">
-                            <button className="close-button" onClick={() => setIsPopupOpen(false)}>
-                                &times;
-                            </button>
+                            <button className="close-button" onClick={() => setIsPopupOpen(false)}>&times;</button>
                             <h3>Add a New Book</h3>
                             <form onSubmit={handleAddBook}>
                                 <input
@@ -159,9 +162,7 @@ const UserProfilePage = () => {
                 {popupType === 'edit' && editingBook && (
                     <div className="overlay">
                         <div className="popup">
-                            <button className="close-button" onClick={() => setIsPopupOpen(false)}>
-                                &times;
-                            </button>
+                            <button className="close-button" onClick={() => setIsPopupOpen(false)}>&times;</button>
                             <h3>Edit Book</h3>
                             <form onSubmit={handleEditBook}>
                                 <input
