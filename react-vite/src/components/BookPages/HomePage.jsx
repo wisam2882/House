@@ -30,7 +30,7 @@ const HomePage = () => {
     const handleGenreClick = (genre) => {
         setSelectedGenre(genre);
         setQuery(genre); // Set the query to the selected genre
-        dispatch(searchBooks(genre, '')); // Dispatch search with the selected genre
+        dispatch(searchBooks(query, '')); // Dispatch search with the selected genre
     };
 
     // Sorting function
