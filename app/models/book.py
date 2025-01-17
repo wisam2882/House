@@ -10,9 +10,9 @@ class Book(db.Model):
     description = db.Column(db.Text, nullable=True)
     genre = db.Column(db.String(100), nullable=True)
 
-    # Define the relationship to Review through the join table
-    user = db.relationship("User", back_populates="books")
-    reviews = db.relationship('Review', back_populates="books")
+    # Define the relationship to User through the join table
+    users = db.relationship("User", secondary='user_books', back_populates="books")
+    reviews = db.relationship('Review', back_populates="book")
     
     def to_dict(self):
         return {

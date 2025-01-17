@@ -1,6 +1,5 @@
 from . import db
 
-
 class Review(db.Model):
     __tablename__ = 'reviews'
 
@@ -9,6 +8,9 @@ class Review(db.Model):
     user_id = db.Column(db.Integer, nullable=False)  # Assuming user management is implemented
     rating = db.Column(db.Integer, nullable=False)
     comment = db.Column(db.Text, nullable=True)
+
+    # Define the relationship to Book
+    book = db.relationship('Book', back_populates="reviews")
 
     def to_dict(self):
         return {
