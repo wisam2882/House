@@ -12,12 +12,10 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    createdAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now())
 
-    # New field added
-    age = db.Column(db.Integer)  # Example of a new column
+  
 
-    # Define the relationship to Book
-    books = db.relationship('Book', backref='user', lazy=True)
 
     @property
     def password(self):
@@ -34,6 +32,5 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email,
-            'age': self.age  # Include new field in dict representation
+            'email': self.email
         }
