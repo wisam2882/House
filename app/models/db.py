@@ -1,3 +1,4 @@
+from . import db
 from flask_sqlalchemy import SQLAlchemy
 
 import os
@@ -13,3 +14,16 @@ def add_prefix_for_prod(attr):
         return f"{SCHEMA}.{attr}"
     else:
         return attr
+
+
+
+# Join table for many-to-many relationship between Users and Books
+user_books = db.Table('user_books', db.metadata,
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
+    db.Column('book_id', db.Integer, db.ForeignKey('books.id'), primary_key=True)
+)
+
+book_reviews = db.Table('book_reviews', db.metadata,
+    db.Column('book_id', db.Integer, db.ForeignKey('books.id'), primary_key=True),
+    db.Column('review_id', db.Integer, db.ForeignKey('reviews.id'), primary_key=True)
+)
