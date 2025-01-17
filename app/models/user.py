@@ -13,6 +13,9 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
 
+    # New field added
+    age = db.Column(db.Integer)  # Example of a new column
+
     # Define the relationship to Book
     books = db.relationship('Book', backref='user', lazy=True)
 
@@ -31,5 +34,6 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'age': self.age  # Include new field in dict representation
         }
