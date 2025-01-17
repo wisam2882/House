@@ -9,7 +9,7 @@ class Book(db.Model):
     cover_image = db.Column(db.String(255), nullable=True)
     description = db.Column(db.Text, nullable=True)
     genre = db.Column(db.String(100), nullable=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)  # Foreign key to User
+    user_id = db.Column(db.Integer, db.ForeignKey('flask_schema.users.id'), nullable=False)  # Correct foreign key
 
     def to_dict(self):
         return {
@@ -19,5 +19,5 @@ class Book(db.Model):
             "cover_image": self.cover_image,
             "description": self.description,
             "genre": self.genre,
-            "user_id": self.user_id  # Include user_id if needed
+            "user_id": self.user_id
         }
