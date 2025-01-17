@@ -97,6 +97,7 @@ const UserProfilePage = () => {
       
                                 </Link>
                                 <div className="profile-book-description">
+                                    <h2>Summary</h2>
                                     <p>{book.description}</p>
                                 </div>
                                 <button onClick={() => { 

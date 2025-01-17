@@ -18,12 +18,10 @@ depends_on = None
 
 def upgrade():
     # Remove this line
-    op.drop_table('_alembic_tmp_books')
+    # op.drop_table('_alembic_tmp_books')  # This line should be removed
     with op.batch_alter_table('books', schema=None) as batch_op:
         batch_op.add_column(sa.Column('user_id', sa.Integer(), nullable=False))
         batch_op.create_foreign_key('fk_user_book', 'users', ['user_id'], ['id'])
-
-    # ### end Alembic commands ###
 
 
 def downgrade():
