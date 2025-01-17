@@ -32,6 +32,9 @@ def upgrade():
         sa.Column('genre', sa.String(100)),
         sa.Column('user_id', sa.Integer, sa.ForeignKey(f'{SCHEMA}.users.id'), nullable=False) 
     )
+    
+    if environment == "production":
+        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
 
 
 
