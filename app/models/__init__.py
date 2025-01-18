@@ -1,7 +1,6 @@
-from .db import db, user_books, book_reviews
+from .db import db, environment, SCHEMA, user_books, book_reviews
 from .user import User
 from .review import Review
 from .book import Book
-from .db import environment, SCHEMA
 
-
+# If needed, add any other model or functionality

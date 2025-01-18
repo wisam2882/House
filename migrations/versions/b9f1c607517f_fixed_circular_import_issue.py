@@ -1,8 +1,8 @@
-"""Fix relationships between User and Book
+"""Fixed circular import issue
 
-Revision ID: 1504ff47d02b
+Revision ID: b9f1c607517f
 Revises: 
-Create Date: 2025-01-17 21:46:22.741782
+Create Date: 2025-01-17 22:48:22.450576
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '1504ff47d02b'
+revision = 'b9f1c607517f'
 down_revision = None
 branch_labels = None
 depends_on = None
