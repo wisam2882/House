@@ -25,6 +25,12 @@ RUN echo "FLASK_APP: $FLASK_APP" && \
     echo "SCHEMA: $SCHEMA" && \
     echo "SECRET_KEY: $SECRET_KEY"
 
+# Check database connection
+RUN python -c "import psycopg2; conn = psycopg2.connect('$DATABASE_URL'); print('Database connected successfully'); conn.close()"
+
+# List migration files
+RUN ls -l /var/www/migrations/versions
+
 RUN flask db upgrade
 RUN flask seed all
 CMD gunicorn app:app
