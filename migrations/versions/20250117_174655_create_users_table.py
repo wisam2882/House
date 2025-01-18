@@ -25,7 +25,7 @@ def upgrade():
         batch_op.alter_column('user_id',
                existing_type=sa.INTEGER(),
                nullable=False)
-        batch_op.create_foreign_key('fk_user_book', 'users', ['user_id'], ['id'])
+        # batch_op.create_foreign_key('fk_user_book', 'users', ['user_id'], ['id'])
 
     # ### end Alembic commands ###
 
@@ -49,7 +49,7 @@ def downgrade():
     sa.Column('description', sa.TEXT(), nullable=True),
     sa.Column('genre', sa.VARCHAR(length=100), nullable=True),
     sa.Column('user_id', sa.INTEGER(), nullable=False),
-    sa.ForeignKeyConstraint(['user_id'], ['users.id'], name='fk_user_book'),
+    # sa.ForeignKeyConstraint(['user_id'], ['users.id'], name='fk_user_book'),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
