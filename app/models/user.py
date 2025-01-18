@@ -1,6 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-from werkzeug.security import generate_password_hash, check_password_hash
+
 from flask_login import UserMixin  
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 class User(db.Model, UserMixin):
@@ -15,7 +16,7 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
     # Define the relationship to Book through the join table
-    books = db.relationship('Book', secondary='user_books', back_populates="user")
+    books = db.relationship('Book', secondary='user_books', back_populates="users")
 
     @property
     def password(self):

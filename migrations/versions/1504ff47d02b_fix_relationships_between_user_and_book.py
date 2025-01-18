@@ -1,8 +1,8 @@
-"""Fix user_id column in reviews table
+"""Fix relationships between User and Book
 
-Revision ID: ddf4a9680977
+Revision ID: 1504ff47d02b
 Revises: 
-Create Date: 2025-01-17 21:18:01.307660
+Create Date: 2025-01-17 21:46:22.741782
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'ddf4a9680977'
+revision = '1504ff47d02b'
 down_revision = None
 branch_labels = None
 depends_on = None
