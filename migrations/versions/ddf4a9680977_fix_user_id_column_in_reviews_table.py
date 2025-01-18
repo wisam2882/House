@@ -1,8 +1,8 @@
-"""empty message
+"""Fix user_id column in reviews table
 
-Revision ID: f976186e3e99
+Revision ID: ddf4a9680977
 Revises: 
-Create Date: 2025-01-17 21:12:48.714587
+Create Date: 2025-01-17 21:18:01.307660
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'f976186e3e99'
+revision = 'ddf4a9680977'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -39,11 +39,11 @@ def upgrade():
     op.create_table('reviews',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('book_id', sa.Integer(), nullable=False),
-    sa.Column('userId', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('rating', sa.Integer(), nullable=False),
     sa.Column('comment', sa.Text(), nullable=True),
     sa.ForeignKeyConstraint(['book_id'], ['books.id'], ),
-    sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('user_books',
