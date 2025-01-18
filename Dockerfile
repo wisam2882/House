@@ -1,7 +1,6 @@
 FROM python:3.9.18-alpine3.18
 
 RUN apk add build-base
-
 RUN apk add postgresql-dev gcc python3-dev musl-dev
 
 ARG FLASK_APP
@@ -18,6 +17,13 @@ RUN pip install -r requirements.txt
 RUN pip install psycopg2
 
 COPY . .
+
+# Print environment variables for debugging
+RUN echo "FLASK_APP: $FLASK_APP" && \
+    echo "FLASK_ENV: $FLASK_ENV" && \
+    echo "DATABASE_URL: $DATABASE_URL" && \
+    echo "SCHEMA: $SCHEMA" && \
+    echo "SECRET_KEY: $SECRET_KEY"
 
 RUN flask db upgrade
 RUN flask seed all
