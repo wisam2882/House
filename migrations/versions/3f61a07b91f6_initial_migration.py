@@ -129,7 +129,7 @@ def upgrade():
 
     if environment == "production" and not is_sqlite:
         # Add schema for production if it's not SQLite
-        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+        op.execute("TRUNCATE table users RESTART IDENTITY CASCADE;")
 
 
 def downgrade():
