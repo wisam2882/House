@@ -11,7 +11,7 @@ class Book(db.Model):
     author = db.Column(db.String(255), nullable=False)
     cover_image = db.Column(db.String(255), nullable=True)
     description = db.Column(db.Text, nullable=True)
-    creatorId = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    creatorId = db.Column(db.Integer, db.ForeignKey(f'{SCHEMA}.users.id'), nullable=False)  # Use schema prefix here
     genre = db.Column(db.String(100), nullable=True)
 
     user = db.relationship('User', back_populates='books')
@@ -24,5 +24,5 @@ class Book(db.Model):
             "cover_image": self.cover_image,
             "description": self.description,
             "genre": self.genre,
-            "userId": self.user.id 
+            "userId": self.user.id  # Ensure you're referencing user.id correctly
         }
