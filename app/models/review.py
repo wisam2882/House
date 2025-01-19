@@ -8,7 +8,7 @@ class Review(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     book_id = db.Column(db.Integer, db.ForeignKey('books.id'), nullable=False)
-    user_id = db.Column(db.Integer, nullable=False)  # Assuming user management is implemented
+    userId = db.Column(db.Integer, nullable=False) 
     rating = db.Column(db.Integer, nullable=False)
     comment = db.Column(db.Text, nullable=True)
 
@@ -19,7 +19,7 @@ class Review(db.Model):
         return {
             "id": self.id,
             "book_id": self.book_id,
-            "user_id": self.user_id,
+            "userId": self.userId,
             "rating": self.rating,
             "comment": self.comment
         }
