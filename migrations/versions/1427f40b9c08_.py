@@ -1,12 +1,13 @@
 """empty message
 
-Revision ID: b65a4ed697c9
+Revision ID: 1427f40b9c08
 Revises: 
-Create Date: 2025-01-18 16:24:43.139005
+Create Date: 2025-01-18 18:12:30.641645
 
 """
 from alembic import op
 import sqlalchemy as sa
+
 
 import os
 environment = os.environ.get("FLASK_ENV")
@@ -14,7 +15,7 @@ SCHEMA = os.environ.get("SCHEMA")
 
 
 # revision identifiers, used by Alembic.
-revision = 'b65a4ed697c9'
+revision = '1427f40b9c08'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -37,9 +38,9 @@ def upgrade():
     sa.Column('author', sa.String(length=255), nullable=False),
     sa.Column('cover_image', sa.String(length=255), nullable=True),
     sa.Column('description', sa.Text(), nullable=True),
+    sa.Column('creatorId', sa.Integer(), nullable=False),
     sa.Column('genre', sa.String(length=100), nullable=True),
-    sa.Column('userId', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['creatorId'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('reviews',
@@ -49,6 +50,7 @@ def upgrade():
     sa.Column('rating', sa.Integer(), nullable=False),
     sa.Column('comment', sa.Text(), nullable=True),
     sa.ForeignKeyConstraint(['book_id'], ['books.id'], ),
+    sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('user_books',
@@ -65,6 +67,7 @@ def upgrade():
     sa.ForeignKeyConstraint(['review_id'], ['reviews.id'], ),
     sa.PrimaryKeyConstraint('book_id', 'review_id')
     )
+    # ### end Alembic commands ###
 
     if environment == "production":
         op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
@@ -72,7 +75,6 @@ def upgrade():
         op.execute(f"ALTER TABLE reviews SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE user_books SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE book_reviews SET SCHEMA {SCHEMA};")
-    # ### end Alembic commands ###
 
 
 def downgrade():
