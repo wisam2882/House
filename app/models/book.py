@@ -3,7 +3,6 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 class Book(db.Model):
     __tablename__ = 'books'
 
-    
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
@@ -15,12 +14,7 @@ class Book(db.Model):
     creatorId = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     genre = db.Column(db.String(100), nullable=True)
 
-
     user = db.relationship('User', back_populates='books')
-    
-    
-
-
 
     def to_dict(self):
         return {
@@ -30,9 +24,5 @@ class Book(db.Model):
             "cover_image": self.cover_image,
             "description": self.description,
             "genre": self.genre,
-            "userId": self.userId
+            "userId": self.user.id 
         }
-
-
-
-
