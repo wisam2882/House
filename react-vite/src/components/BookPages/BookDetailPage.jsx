@@ -25,29 +25,13 @@ const BookDetailPage = () => {
 
   const handleReviewSubmit = (e) => {
     e.preventDefault();
-
-    // Check if user is authenticated
-    if (!isAuthenticated) {
-        setWarningMessage('You must be logged in.');
-        return;  // Prevent submission if not authenticated
-    }
-
-    // Check if rating is provided (must not be an empty string or undefined)
-    if (newReview.rating === '' || newReview.rating === null) {
-        setWarningMessage('Please select a rating!');
-        return;  // Prevent submission if no rating is selected
-    }
-
-    // Proceed with review submission
     const reviewData = {
-        rating: parseInt(newReview.rating, 10),  // Ensure the rating is an integer
-        comment: newReview.comment,
+      rating: newReview.rating,
+      comment: newReview.comment,
     };
-
-    dispatch(addReview(bookId, reviewData)); // Dispatch review action
-    setNewReview({ rating: '', comment: '' }); // Reset form state
-    setWarningMessage(''); // Clear any previous warning messages
-};
+    dispatch(addReview(bookId, reviewData)); // Ensure bookId is passed correctly
+    setNewReview({ rating: '', comment: '' }); // Reset the form
+  };
 
   
   
