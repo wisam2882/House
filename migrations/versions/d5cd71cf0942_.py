@@ -9,9 +9,9 @@ from alembic import op
 import sqlalchemy as sa
 
 
-if environment == "production":
-connection.execute(f"CREATE SCHEMA IF NOT EXISTS {schema_name};")
-context.execute(f"SET search_path TO {SCHEMA};")
+import os
+environment = os.environ.get("FLASK_ENV")
+SCHEMA = os.environ.get("SCHEMA")
 
 
 # revision identifiers, used by Alembic.
