@@ -29,13 +29,19 @@ const BookDetailPage = () => {
     // Check if user is authenticated
     if (!isAuthenticated) {
       setWarningMessage('You must be logged in.');
-      return;  // Prevent submission if not authenticated
+      return; // Prevent submission if not authenticated
     }
   
     // Check if rating is provided
     if (newReview.rating === '') {
       setWarningMessage('Please select a rating!');
       return;  // Prevent submission if no rating is selected
+    }
+  
+    // Check if the comment is provided
+    if (newReview.comment.trim() === '') {
+      setWarningMessage('Please enter a comment!');
+      return;  // Prevent submission if no comment is entered
     }
   
     // Proceed with review submission
@@ -47,6 +53,7 @@ const BookDetailPage = () => {
     setNewReview({ rating: '', comment: '' }); // Reset form state
     setWarningMessage(''); // Clear any previous warning messages
   };
+  
   
 
   // Function to render stars based on rating

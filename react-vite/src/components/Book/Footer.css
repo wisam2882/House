@@ -1,23 +1,27 @@
-footer {
+/* Footer Styles */
+.footer {
     background-color: #333;
     color: white;
     padding: 20px 0;
     text-align: center;
     position: relative;
-    bottom: 0;
     width: 100%;
     font-family: 'Arial', sans-serif;
+    z-index: 10; /* Ensures the footer stays on top of other content */
 }
 
-footer p {
+/* Footer Text */
+.footer p {
     margin: 10px 0;
     font-size: 1.2rem;
 }
 
+/* Footer Navigation */
 footer nav {
     margin-top: 10px;
 }
 
+/* Footer Links */
 footer nav a {
     margin: 0 20px;
     color: white;
@@ -27,19 +31,22 @@ footer nav a {
     transition: color 0.3s ease;
 }
 
+/* Footer Links Hover Effect */
 footer nav a:hover {
     color: #1e90ff;
 }
 
+/* Footer Icon Styling */
 footer nav a i {
     margin-right: 8px;
 }
 
+/* Footer Icon Hover Effect */
 footer nav a:hover i {
     color: #1e90ff;
 }
 
-
+/* Popup Overlay */
 .popup-overlay {
     position: fixed;
     top: 0;
@@ -50,10 +57,10 @@ footer nav a:hover i {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 1000; /* Make sure it's above the footer */
 }
 
-
+/* Popup Content */
 .popup-content {
     background-color: white;
     padding: 30px;
@@ -64,12 +71,14 @@ footer nav a:hover i {
     font-size: 1.2rem;
 }
 
+/* Popup Text */
 .popup-text {
     margin: 20px 0;
     font-size: 1.4rem;
     color: black; 
 }
 
+/* Close Button */
 .close-button {
     background-color: #1e90ff;
     color: white;
@@ -81,6 +90,39 @@ footer nav a:hover i {
     transition: background-color 0.3s ease;
 }
 
+/* Close Button Hover Effect */
 .close-button:hover {
     background-color: #4682b4;
+}
+
+/* Ensure Footer Stays at the Bottom */
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+}
+
+main {
+    flex: 1;
+}
+
+.footer {
+    margin-top: auto;
+}
+
+/* Responsive Styles for Small Screens */
+@media (max-width: 768px) {
+    .footer {
+        padding: 10px 0;
+    }
+
+    footer nav a {
+        margin: 0 10px;
+        font-size: 1rem;
+    }
+
+    .popup-content {
+        width: 80%;
+    }
 }
