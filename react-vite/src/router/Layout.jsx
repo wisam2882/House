@@ -6,6 +6,7 @@ import { thunkAuthenticate } from "../redux/session"; // Import thunkAuthenticat
 import { useDispatch } from "react-redux"; // Import useDispatch
 import { fetchBooks } from "../redux/booksSlice"; // Import fetchBooks
 import Navigation from "../components/Navigation/Navigation";
+import Footer from "../components/Book/Footer";
 
 export default function Layout() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -29,6 +30,7 @@ export default function Layout() {
       <ModalProvider>
         <Navigation onHomeClick={handleHomeClick} /> {/* Pass the function to Navigation */}
         {isLoaded && <Outlet />}
+        <Footer />
         <Modal />
       </ModalProvider>
     </UserProvider>
