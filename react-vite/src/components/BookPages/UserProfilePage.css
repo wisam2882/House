@@ -1,10 +1,8 @@
-/* UserProfilePage.css */
-
 .profile-container {
     display: flex;
     justify-content: space-between;
     padding: 20px;
-    background-color: #f0f4f8; /* Light background color */
+    background-color: #474d53; /* Light background color */
     border-radius: 10px; /* Rounded corners */
     padding: 20px; /* Padding around the content */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
@@ -252,4 +250,3 @@ button[type="submit"]:hover {
     font-weight: 400; /* Normal weight for the welcome message */
     letter-spacing: 0.5px; /* Slightly increases spacing between letters */
 }
-

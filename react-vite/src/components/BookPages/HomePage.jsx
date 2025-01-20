@@ -1,10 +1,10 @@
-
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchBooks, searchBooks } from '../../redux/booksSlice'; 
 import BookCard from '../Book/BookCard';
 import { Link } from 'react-router-dom'; 
 import SearchBar from '../Book/SearchBar'; 
+import Footer from '../Book/Footer'; 
 import "./HomePage.css";
 import coolBackground from '../../images/cool-background.png';
 
@@ -29,8 +29,7 @@ const HomePage = () => {
 
     const handleGenreClick = (genre) => {
         setSelectedGenre(genre);
-        setQuery(genre); // Set the query to the selected genre
-        dispatch(searchBooks(query, '')); // Dispatch search with the selected genre
+        dispatch(searchBooks(genre, '')); // Directly pass the selected genre to the searchBooks action
     };
 
     // Sorting function
@@ -52,7 +51,6 @@ const HomePage = () => {
     }
 
     return (
-        
         <div 
             className="homepage-container" 
             style={{ 
@@ -87,15 +85,14 @@ const HomePage = () => {
                         <span 
                         key={index} 
                         className="genre-link special-genre-link" 
-            onClick={() => handleGenreClick(genre)}
-        >
-            {genre}
-        </span>
-    ))}
-</div>
+                        onClick={() => handleGenreClick(genre)} // Now a single click will trigger the genre search
+                        >
+                            {genre}
+                        </span>
+                    ))}
+                </div>
             </div>
 
-          
             <div className="book-list-container">
                 <h2>Featured Books</h2>
                 {sortedBooks().length === 0 ? (
@@ -110,6 +107,9 @@ const HomePage = () => {
                     </div>
                 )}
             </div>
+
+        
+            <Footer />
         </div>
     );
 };

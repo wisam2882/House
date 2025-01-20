@@ -1,20 +1,21 @@
-"""create tables
+"""empty message
 
-Revision ID: d2405eb6dac3
+Revision ID: d5cd71cf0942
 Revises: 
-Create Date: 2025-01-17 19:41:23.982497
+Create Date: 2025-01-20 14:25:17.288904
 
 """
 from alembic import op
 import sqlalchemy as sa
-import os
 
 
-environment = os.getenv("FLASK_ENV")
-SCHEMA = os.environ.get("SCHEMA")
+if environment == "production":
+connection.execute(f"CREATE SCHEMA IF NOT EXISTS {schema_name};")
+context.execute(f"SET search_path TO {SCHEMA};")
+
 
 # revision identifiers, used by Alembic.
-revision = 'd2405eb6dac3'
+revision = 'd5cd71cf0942'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -49,12 +50,15 @@ def upgrade():
     sa.Column('rating', sa.Integer(), nullable=False),
     sa.Column('comment', sa.Text(), nullable=True),
     sa.ForeignKeyConstraint(['book_id'], ['books.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
-    
+
     if environment == "production":
         op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE books SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE reviews SET SCHEMA {SCHEMA};")
 
 
 def downgrade():
