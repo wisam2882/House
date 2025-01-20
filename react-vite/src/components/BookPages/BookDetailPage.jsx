@@ -25,13 +25,22 @@ const BookDetailPage = () => {
 
   const handleReviewSubmit = (e) => {
     e.preventDefault();
+  
+    if (!newReview.rating) {
+      setWarningMessage("Please select a rating before submitting.");
+      return;
+    }
+  
     const reviewData = {
-      rating: newReview.rating,
+      rating: parseInt(newReview.rating),  // Ensure rating is an integer
       comment: newReview.comment,
     };
+  
     dispatch(addReview(bookId, reviewData)); // Ensure bookId is passed correctly
     setNewReview({ rating: '', comment: '' }); // Reset the form
+    setWarningMessage('');  // Clear any previous warning messages
   };
+  
 
   
   
