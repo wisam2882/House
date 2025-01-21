@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchBook, addReview, fetchReviews } from '../../redux/booksSlice';
 import './BookDetailPage.css'; // Import the CSS file
-import Footer from '../Book/Footer'; // Import the Footer component
+import Footer from '../Book/Footer'; 
 
 const BookDetailPage = () => {
   const { bookId } = useParams(); 
@@ -13,7 +13,7 @@ const BookDetailPage = () => {
   const errors = useSelector((state) => state.books.errors);
   const reviews = useSelector((state) => state.books.reviews); 
   const user = useSelector((state) => state.session.user); 
-  const isAuthenticated = user !== null; // Determine if user is authenticated
+  const isAuthenticated = user !== null; 
   const [newReview, setNewReview] = useState({ rating: '', comment: '' });
   const [warningMessage, setWarningMessage] = useState('');
 
@@ -24,27 +24,46 @@ const BookDetailPage = () => {
 
   const handleReviewSubmit = (e) => {
     e.preventDefault();
+  
+    let messages = [];  
+  
     if (!isAuthenticated) {
-      setWarningMessage('You must be logged in.');
+      messages.push('You must be logged in.');
     }
+  
     if (newReview.rating === '') {
-      setWarningMessage('Please select a rating!');
-      return; // Prevent submission
+      messages.push('Please select a rating!');
     }
+  
     
+    if (messages.length > 0) {
+      setWarningMessage(messages.join(' '));  
+      return; 
+    }
+  
+   
     const reviewData = {
       rating: newReview.rating,
       comment: newReview.comment,
     };
-    dispatch(addReview(bookId, reviewData)); 
+    dispatch(addReview(bookId, reviewData));
     setNewReview({ rating: '', comment: '' });
-    setWarningMessage(''); 
+    setWarningMessage('');  
   };
 
-  // Function to render stars based on rating
+ 
   const renderStars = (rating) => {
-    return '★'.repeat(rating) + '☆'.repeat(5 - rating); // Full stars for ratin
+    return '★'.repeat(rating) + '☆'.repeat(5 - rating); 
   };
+
+
+  const calculateAverageRating = (reviews) => {
+    if (reviews.length === 0) return 0;
+    const totalRating = reviews.reduce((acc, review) => acc + parseInt(review.rating), 0);
+    return (totalRating / reviews.length).toFixed(1); 
+  };
+
+  const averageRating = calculateAverageRating(reviews);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -64,6 +83,11 @@ const BookDetailPage = () => {
         <h3>{book.title}</h3>
         <p>{book.author}</p>
 
+     
+        <div className="average-rating">
+          <h4>Average Rating: {averageRating} ★</h4>
+        </div>
+
         <div className="book-info">
           <div className="book-card">
             <img src={book.cover_image} alt={book.title} />
@@ -74,7 +98,6 @@ const BookDetailPage = () => {
             <p>{book.description}</p>
           </div>
 
-         
           <div className="rating-container">
             <input
               type="radio"
@@ -181,7 +204,6 @@ const BookDetailPage = () => {
             </label>
             <button className="review-submit-button" type="submit">Add Review</button>
           </form>
-
         </div>
       </div>
 
