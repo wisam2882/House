@@ -112,7 +112,7 @@ const UserProfilePage = () => {
                                     <h3>{book.title}</h3>
                                     <p>{book.author}</p>
                                     <Link to={`/books/${book.id}`}>
-                                        <img src={book.cover_image} alt="Book Cover" />
+                                    <img src={book.cover_image} alt="Book Cover" className="book-cover" />
                                     </Link>
                                     <div className="profile-book-description">
                                         <h2>Summary</h2>

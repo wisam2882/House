@@ -1,3 +1,48 @@
+# Wireframe Layout
+
+# Home Page
+1. Header: Logo, Navigation Links (Home, My Books, About,)
+2. Main Section:
+3. Search Bar to find books(tag name)
+4. Featured Books Section (displaying popular or new books)
+5. (tag to view most popular/most recent)
+6. List of Books (each book card includes title, author, cover image, and a brief description)
+7. Footer: Links to social media, terms of service
+# Book Detail Page
+1. Header: Same as Home Page
+2. Book Information:
+3. Title, Author, Cover Image
+4. Description
+5. Reviews Section (user-generated reviews)
+6. Buttons: "Add Review" 
+7. Footer: Links to social media, terms of service
+# User Profile Page
+1. Header: Same as Home Page
+2. User Information:
+3. Profile Picture, Username
+4. List of Books Added by User (with options to edit or delete each entry)
+5. Footer: Links to social media, terms of service
+# Add/Edit Book Page(pop up)
+1. Header: Same as Home Page
+2. Form Fields:
+3. Title, Author, Cover Image Upload, Description, Genre
+4. Buttons: "Submit" (to add/edit the book), "Cancel"
+5. Footer: Links to social media, terms of service
+
+
+
+
+# Schema
+
+
+
+
+
+
+
+
+
+
 # Flask React Project
 
 This is the starter for the Flask React project.
