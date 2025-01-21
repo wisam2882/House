@@ -7,7 +7,7 @@ import bookImage from '../../images/book3.jpg';
 import bookImage5 from '../../images/book5.jpg';
 import bookImage4 from '../../images/book4.jpg';
 import './UserProfilePage.css';
-import Footer from '../Book/Footer'; // Import Footer 
+
 
 const UserProfilePage = () => {
     const { userId } = useParams();
@@ -224,7 +224,7 @@ const UserProfilePage = () => {
             )}
 
      
-            <Footer />
+         
         </div>
     );
 };

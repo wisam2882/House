@@ -4,7 +4,7 @@ import { fetchBooks, searchBooks } from '../../redux/booksSlice';
 import BookCard from '../Book/BookCard';
 import { Link } from 'react-router-dom'; 
 import SearchBar from '../Book/SearchBar'; 
-import Footer from '../Book/Footer'; 
+
 import "./HomePage.css";
 import coolBackground from '../../images/cool-background.png';
 
@@ -109,7 +109,7 @@ const HomePage = () => {
             </div>
 
         
-            <Footer />
+        
         </div>
     );
 };

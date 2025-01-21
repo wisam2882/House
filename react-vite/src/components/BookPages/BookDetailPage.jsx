@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchBook, addReview, fetchReviews } from '../../redux/booksSlice';
 import './BookDetailPage.css'; // Import the CSS file
-import Footer from '../Book/Footer'; // Import the Footer component
+
 
 const BookDetailPage = () => {
   const { bookId } = useParams(); 
@@ -14,7 +14,7 @@ const BookDetailPage = () => {
   const errors = useSelector((state) => state.books.errors);
   const reviews = useSelector((state) => state.books.reviews); 
   const user = useSelector((state) => state.session.user); 
-  const isAuthenticated = user !== null; // Determine if user is authenticated
+  const isAuthenticated = user !== null; 
   const [newReview, setNewReview] = useState({ rating: '', comment: '' });
   const [warningMessage, setWarningMessage] = useState('');
 
@@ -189,7 +189,7 @@ const BookDetailPage = () => {
         </div>
       </div>
 
-      <Footer />
+   
     </div>
   );
 };
