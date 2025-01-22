@@ -99,7 +99,7 @@ def add_review(book_id):
     try:
         new_review = Review(
             book_id=book_id,
-            user_id=current_user.id,  # Use the current user's ID
+            user_id=current_user.id,  
             rating=data['rating'],
             comment=data.get('comment')
         )
@@ -118,3 +118,4 @@ def get_reviews(book_id):
 
     reviews = Review.query.filter_by(book_id=book_id).all()
     return jsonify([review.to_dict() for review in reviews]), 200
+

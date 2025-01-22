@@ -64,7 +64,7 @@ const HomePage = () => {
             <div className="search-bar-container">
                 <SearchBar selectedGenre={selectedGenre} setQuery={setQuery} />
                 
-                {/* Sort By Dropdown commented out for now */}
+            
                 {/* <div className="sort-dropdown">
                     <label htmlFor="sort">Sort By:</label>
                     <select 

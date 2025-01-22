@@ -1,3 +1,4 @@
+// store.js
 import {
   legacy_createStore as createStore,
   applyMiddleware,
@@ -7,10 +8,12 @@ import {
 import thunk from "redux-thunk";
 import sessionReducer from "./session";
 import booksReducer from './booksSlice';
+import reviewsReducer from './reviewredux';  // Import the reviews reducer
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   books: booksReducer,
+  reviews: reviewsReducer, // Add the reviews reducer here
 });
 
 let enhancer;

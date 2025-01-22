@@ -301,44 +301,25 @@ export const deleteBook = (bookId) => async (dispatch) => {
   }
 };
 
-// export const fetchBooks = () => async (dispatch) => {
-//   dispatch(fetchBooksRequest());
-//   try {
-//       const response = await fetch('/api/books/books');
 
-//       // Check if the response is not OK (status code outside the range 200-299)
-//       if (!response.ok) {
-//           const errorData = await response.text();
-//           throw new Error(`Error: ${response.status} - ${errorData}`);
-//       }
-
-//       const data = await response.json();
-//       console.log('Fetched books data:', data); // Log the fetched data for debugging
-
-//       // Dispatch success action with the fetched data
-//       dispatch(fetchBooksSuccess(data));
-//   } catch (error) {
-//       console.error('Error fetching books:', error);
-//       // Dispatch failure action with the error message
-//       dispatch(fetchBooksFailure({ server: error.message }));
-//   }
-// };
 
 // Thunk Action Creator for Fetching a Single Book
 export const fetchBook = (id) => async (dispatch) => {
   dispatch(fetchBookRequest());
   try {
-    const response = await fetch(`/api/books/books/${id}`);
-    if (!response.ok) {
-      const errorData = await response.text();
-      throw new Error(`Error: ${response.status} - ${errorData}`);
-    }
-    const data = await response.json();
-    console.log('Fetched book data:', data); // Log the fetched data
-    dispatch(fetchBookSuccess(data));
+      const response = await fetch(`/api/books/books/${id}`);
+      if (!response.ok) {
+          const errorData = await response.text();
+          throw new Error(`Error: ${response.status} - ${errorData}`);
+      }
+      const data = await response.json();
+      console.log('Fetched book data:', data); // Log the fetched data
+      dispatch(fetchBookSuccess(data));
+      return data; // Return the data to be used in payload
   } catch (error) {
-    console.error('Error fetching book:', error);
-    dispatch(fetchBookFailure({ server: error.message }));
+      console.error('Error fetching book:', error);
+      dispatch(fetchBookFailure({ server: error.message }));
+     throw error; // rethrow the error so we can catch it in reviewList.jsx
   }
 };
 

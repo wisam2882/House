@@ -6,6 +6,9 @@ import HomePage from '../components/BookPages/HomePage'; // Import HomePage
 import BookDetailPage from '../components/BookPages/BookDetailPage'; // Import BookDetailPage
 import UserProfilePage from '../components/BookPages/UserProfilePage'; // Import UserProfilePage
 
+import UserReviews from '../components/Review/ReviewList';
+
+
 export const router = createBrowserRouter([
   {
     element: <Layout />,
@@ -30,6 +33,11 @@ export const router = createBrowserRouter([
         path: "profile/:userId", // Updated route for User Profile Page to include userId
         element: <UserProfilePage />,
       },
+         {
+            path: "reviews/:userId",
+            element: <UserReviews />,
+         },
+
     ],
   },
 ]);

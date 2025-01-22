@@ -3,11 +3,11 @@
 
 /* Center the navigation links */
 .navigation-list {
-  display: flex; 
-  justify-content: center; 
-  list-style-type: none; 
-  padding: 0; 
-  margin: 0; 
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
   flex-grow: 1; /* Allow the list to grow and take available space */
 }
 
@@ -24,12 +24,12 @@
 /* Navigation button styles */
 .nav-button {
   font-family: "Times New Roman", Times, serif;
-  color: black; 
-  background-color: transparent; 
-  border: 2px solid black; 
-  padding: 10px 15px; 
-  text-decoration: none; 
-  cursor: pointer; 
+  color: black;
+  background-color: transparent;
+  border: 2px solid black;
+  padding: 10px 15px;
+  text-decoration: none;
+  cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
 }
 
@@ -38,21 +38,42 @@
   color: white; /* Change text color on hover */
 }
 
+.review-button {
+  font-family: "Times New Roman", Times, serif;
+  color: black;
+  background-color: transparent;
+  border: 2px solid black;
+  padding: 10px 15px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  font-size: 1.1rem;
+}
+
+.review-button:hover {
+  background-color: #007bff; /* Change background on hover */
+  color: white; /* Change text color on hover */
+}
+
+
 /* Profile button styles */
 .profile-button {
-  font-family: "Times New Roman", Times, serif; 
-  color: black; 
+  font-family: "Times New Roman", Times, serif;
+  color: black;
   background-color: transparent;
-  border: 2px solid black; 
-  padding: 10px 15px; 
-  text-decoration: none; 
-  cursor: pointer; 
-  transition: background-color 0.3s, color 0.3s; 
+  border: 2px solid black;
+  padding: 10px 15px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .nav-icon {
   margin-right: 20px; /* Space between the icon and the navigation list */
+display: flex;
+  align-items: center;
 }
+
 
 .home-icon {
   width: 100px; /* Set a width for the icon */
@@ -60,47 +81,48 @@
   cursor: pointer; /* Change cursor to pointer on hover */
 }
 
+
 /* Navigation.css */
 
 /* General styles for the navigation */
 .navigation-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  background-color: #f8f9fa; /* Background color for the nav */
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 10px;
+background-color: #f8f9fa; /* Background color for the nav */
 }
 
 /* Dropdown menu styles */
 .dropdown-menu {
-  position: absolute; /* Position it absolutely */
-  top: 60px; /* Adjust based on your nav height */
-  left: 0; /* Align to the left side of the screen */
-  background-color: white; /* Background color for the dropdown */
-  border: 1px solid #ccc; /* Border for the dropdown */
-  border-radius: 4px; /* Rounded corners */
-  padding: 10px; /* Padding inside the dropdown */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
-  z-index: 1000; /* Ensure it appears above other elements */
+position: absolute; /* Position it absolutely */
+top: 60px; /* Adjust based on your nav height */
+left: 0; /* Align to the left side of the screen */
+background-color: white; /* Background color for the dropdown */
+border: 1px solid #ccc; /* Border for the dropdown */
+border-radius: 4px; /* Rounded corners */
+padding: 10px; /* Padding inside the dropdown */
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+z-index: 1000; /* Ensure it appears above other elements */
 }
 
 /* Search bar container styles */
 .search-bar-container {
-  margin-bottom: 10px; /* Space between search bar and genre list */
+margin-bottom: 10px; /* Space between search bar and genre list */
 }
 
 /* Genre and Categories list styles */
 .genre-links, .categories-list {
-  margin-top: 10px; /* Space above the lists */
+margin-top: 10px; /* Space above the lists */
 }
 
 .genre-link, .category-link {
-  cursor: pointer; /* Change cursor to pointer for clickable links */
-  margin: 5px 0; /* Add some margin between links */
-  color: #007bff; /* Change color for links */
-  text-decoration: underline; /* Underline links */
+cursor: pointer; /* Change cursor to pointer for clickable links */
+margin: 5px 0; /* Add some margin between links */
+color: #007bff; /* Change color for links */
+text-decoration: underline; /* Underline links */
 }
 
 .genre-link:hover, .category-link:hover {
-  color: #0056b3; /* Change color on hover */
+color: #0056b3; /* Change color on hover */
 }

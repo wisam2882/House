@@ -1,66 +1,62 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchBook, addReview, fetchReviews } from '../../redux/booksSlice';
 import './BookDetailPage.css'; // Import the CSS file
-import Footer from '../Book/Footer'; 
+import Footer from '../Book/Footer';
 
 const BookDetailPage = () => {
-  const { bookId } = useParams(); 
+  const { bookId } = useParams();
   const dispatch = useDispatch();
   const book = useSelector((state) => state.books.selectedBook);
   const loading = useSelector((state) => state.books.loading);
   const errors = useSelector((state) => state.books.errors);
-  const reviews = useSelector((state) => state.books.reviews); 
-  const user = useSelector((state) => state.session.user); 
-  const isAuthenticated = user !== null; 
+  const reviews = useSelector((state) => state.books.reviews);
+  const user = useSelector((state) => state.session.user);
+  const isAuthenticated = user !== null;
   const [newReview, setNewReview] = useState({ rating: '', comment: '' });
   const [warningMessage, setWarningMessage] = useState('');
 
   useEffect(() => {
-    dispatch(fetchBook(bookId)); 
-    dispatch(fetchReviews(bookId)); 
+    dispatch(fetchBook(bookId));
+    dispatch(fetchReviews(bookId));
   }, [dispatch, bookId]);
 
   const handleReviewSubmit = (e) => {
     e.preventDefault();
-  
-    let messages = [];  
-  
+
+    let messages = [];
+
     if (!isAuthenticated) {
       messages.push('You must be logged in.');
     }
-  
+
     if (newReview.rating === '') {
       messages.push('Please select a rating!');
     }
-  
-    
+
     if (messages.length > 0) {
-      setWarningMessage(messages.join(' '));  
-      return; 
+      setWarningMessage(messages.join(' '));
+      return;
     }
-  
-   
+
     const reviewData = {
       rating: newReview.rating,
       comment: newReview.comment,
     };
     dispatch(addReview(bookId, reviewData));
     setNewReview({ rating: '', comment: '' });
-    setWarningMessage('');  
+    setWarningMessage('');
   };
 
- 
   const renderStars = (rating) => {
-    return '★'.repeat(rating) + '☆'.repeat(5 - rating); 
+    return '★'.repeat(rating) + '☆'.repeat(5 - rating);
   };
-
 
   const calculateAverageRating = (reviews) => {
     if (reviews.length === 0) return 0;
     const totalRating = reviews.reduce((acc, review) => acc + parseInt(review.rating), 0);
-    return (totalRating / reviews.length).toFixed(1); 
+    return (totalRating / reviews.length).toFixed(1);
   };
 
   const averageRating = calculateAverageRating(reviews);
@@ -78,12 +74,11 @@ const BookDetailPage = () => {
   }
 
   return (
-    <div className="page-container"> 
+    <div className="page-container">
       <div className="book-detail-container">
         <h3>{book.title}</h3>
         <p>{book.author}</p>
 
-     
         <div className="average-rating">
           <h4>Average Rating: {averageRating} ★</h4>
         </div>
@@ -92,65 +87,35 @@ const BookDetailPage = () => {
           <div className="book-card">
             <img src={book.cover_image} alt={book.title} />
           </div>
-          
+
           <div className="profile-book-description">
             <h2>Summary</h2>
             <p>{book.description}</p>
           </div>
 
           <div className="rating-container">
-            <input
-              type="radio"
-              name="rating"
-              id="rate1"
-              value="5"
-              checked={newReview.rating === '5'}
-              onChange={(e) => setNewReview({ ...newReview, rating: e.target.value })}
-            />
-            <label htmlFor="rate1">★</label>
-            <input
-              type="radio"
-              name="rating"
-              id="rate2"
-              value="4"
-              checked={newReview.rating === '4'}
-              onChange={(e) => setNewReview({ ...newReview, rating: e.target.value })}
-            />
-            <label htmlFor="rate2">★</label>
-            <input
-              type="radio"
-              name="rating"
-              id="rate3"
-              value="3"
-              checked={newReview.rating === '3'}
-              onChange={(e) => setNewReview({ ...newReview, rating: e.target.value })}
-            />
-            <label htmlFor="rate3">★</label>
-            <input
-              type="radio"
-              name="rating"
-              id="rate4"
-              value="2"
-              checked={newReview.rating === '2'}
-              onChange={(e) => setNewReview({ ...newReview, rating: e.target.value })}
-            />
-            <label htmlFor="rate4">★</label>
-            <input
-              type="radio"
-              name="rating"
-              id="rate5"
-              value="1"
-              checked={newReview.rating === '1'}
-              onChange={(e) => setNewReview({ ...newReview, rating: e.target.value })}
-            />
-            <label htmlFor="rate5">★</label>
+             {/* Render radio buttons in ascending order (1 to 5) */}
+             {[1, 2, 3, 4, 5].map((value) => (
+                  <React.Fragment key={`rate-${value}`}>
+                      <input
+                          type="radio"
+                          name="rating"
+                          id={`rate${value}`}
+                           value={value}
+                           checked={newReview.rating === String(value)}
+                           onChange={(e) => setNewReview({ ...newReview, rating: e.target.value })}
+                      />
+                      <label htmlFor={`rate${value}`}>★</label>
+                    </React.Fragment>
+                ))}
+           
             <div className="rating-value"></div>
           </div>
         </div>
 
         <div className="comment-section">
           <h4 className="comment-title">Discussion:</h4>
-          {warningMessage && <div className="warning-message">{warningMessage}</div>} {/* Display warning message */}
+          {warningMessage && <div className="warning-message">{warningMessage}</div>}
           <ul className="comment-list">
             {reviews.map((review) => (
               <li className={`comment-item depth-${review.depth}`} key={review.id}>

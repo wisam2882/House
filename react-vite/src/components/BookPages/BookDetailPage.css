@@ -131,11 +131,10 @@ input[type="number"]:focus,
   margin-right: 10px; /* Space between icon and text */
 }
 
-
-
 .rating-container {
   display: flex;
   gap: 10px;
+    flex-direction: row-reverse;
 }
 
 .rating-container input {
@@ -150,15 +149,15 @@ input[type="number"]:focus,
 }
 
 .rating-container label:hover,
-.rating-container input:checked + label,
-.rating-container input:checked ~ label {
+.rating-container input:checked + label{
   color: gold;
   text-shadow: 0 0 10px gold, 0 0 20px gold;
 }
 
-.rating-container input:checked + label ~ label {
+.rating-container input:checked ~ label {
   color: gray;
 }
+
 
 .comment__actions {
   font-size: 18px;
@@ -175,7 +174,6 @@ input[type="number"]:focus,
 .footer {
   margin-top: auto; /* Push footer to the bottom of the page */
 }
-
 
 button.review-submit-button {
   width: 200px !important; /* Set the width of the button */
