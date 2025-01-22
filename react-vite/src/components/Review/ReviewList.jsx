@@ -6,6 +6,7 @@ import EditReviewForm from './EditReview';
 import BookCard from '../Book/BookCard';
 import { fetchBook } from '../../redux/booksSlice';
 import './ReviewList.css';
+import Footer from '../Book/Footer'; // Import the Footer
 
 const ReviewsList = () => {
     const dispatch = useDispatch();
@@ -20,7 +21,7 @@ const ReviewsList = () => {
     const [isEditPopupOpen, setIsEditPopupOpen] = useState(false);
     const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
     const [reviewToDelete, setReviewToDelete] = useState(null);
-    const editPopupRef = useRef(null);
+     const editPopupRef = useRef(null);
       const deletePopupRef = useRef(null);
 
 
@@ -104,7 +105,8 @@ const ReviewsList = () => {
 
     return (
         <div className="review-list-container">
-            <h2>User Reviews</h2>
+          <div className='content-wrapper'>
+           <h2>User Reviews</h2>
             {userReviews.length === 0 ? (
                 <p>No reviews found.</p>
             ) : (
@@ -130,8 +132,7 @@ const ReviewsList = () => {
                 {isEditPopupOpen && selectedReview && (
                     <div className="overlay" >
                         <div className="popup edit-popup"  ref={editPopupRef}>
-                            {/* <button className="close-button" onClick={closeEditPopup}>×</button> */}
-                            <EditReviewForm review={selectedReview} closeEditPopup={closeEditPopup} />
+                             <EditReviewForm review={selectedReview} closeEditPopup={closeEditPopup} />
                        </div>
                    </div>
                 )}
@@ -148,6 +149,8 @@ const ReviewsList = () => {
                        </div>
                     </div>
                  )}
+           </div>
+           <Footer />
         </div>
     );
 };

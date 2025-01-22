@@ -9,7 +9,7 @@ import bookImage4 from '../../images/book4.jpg';
 import './UserProfilePage.css';
 import Footer from '../Book/Footer'; // Import Footer 
 
-import ReviewsList from '../Review/ReviewList';
+
 
 const UserProfilePage = () => {
     const { userId } = useParams();
